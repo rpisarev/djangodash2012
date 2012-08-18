@@ -16,8 +16,8 @@ urlpatterns = patterns('core.views',
     url(r'^test_instagram/$', 'test_instagram',),
     url(r'^test_flickr/$', 'test_flickr',),
 
-    url(r'^(?P<obj_slug>[-\w]+)$', 'object',name='core_object'),
-    url(r'^(?P<obj_slug>[-\w]+)/(?P<year>[0-9]+)$', 'object_year',name='core_object_year'),
+    url(r'^(?P<miracle_slug>[-\w]+)$', 'miracle',name='core_miracle'),
+    url(r'^(?P<miracle_slug>[-\w]+)/(?P<year>[0-9]+)$', 'miracle_year',name='core_miracle_year'),
 
 
 
