@@ -125,6 +125,9 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'south',
+
+    'core',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -160,3 +163,7 @@ PRODUCTION_HOST = 'dash.chodex.ru'
 
 if platform.node() != PRODUCTION_HOST:
     from settings_dev import *
+
+INITIAL_YEAR = 1930
+FINAL_YEAR = 2001
+YEAR_STEP = 10
