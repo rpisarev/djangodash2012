@@ -6,16 +6,16 @@ import urllib2
 import simplejson
 
 
-def instagram_get_by_tag(object, tag):
+def instagram_get_by_tag(miracle, tag):
     api = InstagramAPI(client_id=settings.INSTAGRAM_CLIENT_ID, client_secret=settings.INSTAGTAM_SECRET)
     result = api.tag_recent_media(100, 0, tag)
 
     for media in result[0]:
-        create_image(object, Image.SERVICE_TYPES['instagram'], media.standard_resolution, media.id)
+        create_image(miracle, Image.SERVICE_TYPES['instagram'], media.standard_resolution, media.id)
 
     return
 
-def google_get(object, tag):
+def google_get(miracle, tag):
     #custom search zaebal
     #service = build('customsearch', 'v1', developerKey=settings.GOOGLE_API)
 
@@ -31,7 +31,7 @@ def google_get(object, tag):
     for image in results['results']:
         url = image.url
         source = image.imageId
-        create_image(object, Image.SERVICE_TYPES['google'], source)
+        create_image(miracle, Image.SERVICE_TYPES['google'], source)
 
     return
 
@@ -52,7 +52,7 @@ def flickr_get(object, tag):
         size='o'
         url = r"""http://static.flickr.com/%s/%s_%s_%s.jpg""" % (server,id,secret,size)
 
-        create_image(object, Image.SERVICE_TYPES['flickr'], url, id)
+        create_image(miracle, Image.SERVICE_TYPES['flickr'], url, id)
 
         import pdb
         pdb.set_trace()
@@ -66,9 +66,9 @@ def get_client_ip(request):
         ip = request.META.get('REMOTE_ADDR')
     return ip
 
-def create_image(object, type, url, source):
+def create_image(miracle, type, url, source):
     image = Image()
-    image.object = object
+    image.miracle = miracle
     image.type = type
     image.url = url
     image.rating = 0

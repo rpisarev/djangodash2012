@@ -3,19 +3,22 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Sum
 import datetime
 
-from core.models import Image,Vote,Object
-from .utils import get_client_ip
+from core.models import Image,Vote,miracle
+from .utils import get_client_ip, instagram_get_by_tag
 
 def main(request,template='main.html'):
     context = ({})
     return render(request, template, context)
 
-def object(request,obj_slug,template='object.html'):
-    obj = get_object_or_404(Object,slug = obj_slug)
-    context = ({'obj':obj})
+def miracle(request,miracle_slug,template='miracle.html'):
+    miracle = get_object_or_404(Miracle,slug = miracle_slug)
+    context = ({'miracle':miracle})
+
+    instagram_get_by_tag(miracle, miracle.google_tags)
+
     return render(request, template, context)
 
-def object_year(request,obj_slug,year):
+def miracle_year(request,miracle_slug,year):
     return HttpResponse()
 
 def vote(request,image_id,value):

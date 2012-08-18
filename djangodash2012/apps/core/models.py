@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Object(models.Model):
+class Miracle(models.Model):
     name = models.CharField('Name',max_length=250)
     description = models.TextField('Description')
     coord_x = models.CharField('Latitude',max_length=250)
@@ -30,7 +30,7 @@ class Image(models.Model):
     url = models.URLField('URL',max_length=250)
     source = models.CharField('Source Id', max_length=250,unique=True)
 
-    object = models.ForeignKey(Object)
+    miracle = models.ForeignKey(Miracle)
     year =models.ForeignKey(Year)
 
     def __unicode__(self):
