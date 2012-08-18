@@ -4,7 +4,7 @@ from django.db.models import Sum
 import datetime
 
 from core.models import Image,Vote,Miracle
-from .utils import get_client_ip, instagram_get_by_tag
+from .utils import get_client_ip, instagram_get_by_tag, google_get
 
 def main(request,template='main.html'):
     context = ({})
@@ -14,7 +14,9 @@ def miracle(request,miracle_slug,template='miracle.html'):
     miracle = get_object_or_404(Miracle,slug = miracle_slug)
     context = ({'miracle':miracle})
 
-    instagram_get_by_tag(miracle, miracle.google_tags)
+    #instagram_get_by_tag(miracle)
+    google_get(miracle)
+
 
     return render(request, template, context)
 

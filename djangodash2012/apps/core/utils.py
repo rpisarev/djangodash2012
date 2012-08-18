@@ -6,16 +6,20 @@ import urllib2
 import simplejson
 
 
-def instagram_get_by_tag(miracle, tag):
+def instagram_get_by_tag(miracle):
+    tag = miracle.instag_tags
     api = InstagramAPI(client_id=settings.INSTAGRAM_CLIENT_ID, client_secret=settings.INSTAGTAM_SECRET)
     result = api.tag_recent_media(100, 0, tag)
 
+
     for media in result[0]:
-        create_image(miracle, Image.SERVICE_TYPES['instagram'], media.standard_resolution, media.id)
+        print media.images['standard_resolution']
+        create_image(miracle, Image.SERVICE_TYPES[0], media.images['standard_resolution'], media.id)
 
     return
 
-def google_get(miracle, tag):
+def google_get(miracle):
+    tag = miracle.google_tags
     #custom search zaebal
     #service = build('customsearch', 'v1', developerKey=settings.GOOGLE_API)
 
@@ -25,13 +29,15 @@ def google_get(miracle, tag):
     url = ('https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=%s' % (tag))
 
     request = urllib2.Request(url, None, {'Referer': ''})
+
     response = urllib2.urlopen(request)
 
     results = simplejson.load(response)
-    for image in results['results']:
+
+    for image in['responseData']['results']:
         url = image.url
         source = image.imageId
-        create_image(miracle, Image.SERVICE_TYPES['google'], source)
+        create_image(miracle, Image.SERVICE_TYPES[2], url, source)
 
     return
 
@@ -67,6 +73,9 @@ def get_client_ip(request):
     return ip
 
 def create_image(miracle, type, url, source):
+
+    #import pdb
+    #pdb.set_trace()
     image = Image()
     image.miracle = miracle
     image.type = type
