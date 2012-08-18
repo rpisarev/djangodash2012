@@ -1,10 +1,6 @@
 from django.conf.urls import patterns, include, url
 
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin
-admin.autodiscover()
-
-urlpatterns = patterns('',
+urlpatterns = patterns('local.views',
     # Examples:
     # url(r'^$', 'djangodash2012.views.home', name='home'),
     # url(r'^djangodash2012/', include('djangodash2012.foo.urls')),
@@ -13,9 +9,5 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('local.urls')),
-    url(r'^', include('core.urls')),
-
-
+    url(r'^parse_flickr$', 'parse_flickr'),
 )

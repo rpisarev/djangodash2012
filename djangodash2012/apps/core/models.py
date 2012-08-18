@@ -8,6 +8,7 @@ class Miracle(models.Model):
     coord_y = models.CharField('Longitude',max_length=250)
     instag_tags = models.CharField('Instagram tags',max_length=250)
     google_tags = models.CharField('Google tags',max_length=250)
+    flickr_tags = models.CharField('Flickr tags',max_length=250)
     slug = models.SlugField('Slug',max_length=250)
 
     def __unicode__(self):
@@ -27,7 +28,7 @@ class Image(models.Model):
         )
     rating = models.IntegerField('Rating',default=0)
     type = models.CharField('Service type',max_length=20,choices=SERVICE_TYPES)
-    url = models.URLField('URL',max_length=250)
+    url = models.URLField('URL',max_length=250,unique=True)
     source = models.CharField('Source Id', max_length=250,unique=True)
 
     miracle = models.ForeignKey(Miracle)
