@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Sum
 import datetime
 
-from core.models import Image,Vote,miracle
+from core.models import Image,Vote,Miracle
 from .utils import get_client_ip, instagram_get_by_tag
 
 def main(request,template='main.html'):
