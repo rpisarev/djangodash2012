@@ -9,7 +9,8 @@ html {
 body {
 	font: 12px/18px Arial, Tahoma, Verdana, sans-serif;
 	height: 100%;
-	background: url('../images/background.png')
+	background: url('../images/background.png');
+    overflow-x: hidden;
 }
 a {
 	color: blue;

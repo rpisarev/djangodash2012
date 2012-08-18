@@ -10,6 +10,7 @@ urlpatterns = patterns('core.views',
 
     # Uncomment the next line to enable the admin:
     url(r'^$', 'main',name='core_main'),
+    url(r'^vote/(?P<image_id>[0-9]+)/(?P<value>(up|down))$', 'vote',name='core_vote'),
 
     url(r'^test_google/$', 'test_google',),
     url(r'^test_instagram/$', 'test_instagram',),
