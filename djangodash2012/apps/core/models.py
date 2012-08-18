@@ -21,11 +21,13 @@ class Year(models.Model):
 class Image(models.Model):
     SERVICE_TYPES = (
         ('instagram', 'Instagram'),
+        ('flickr', 'Flickr'),
         ('google', 'Google'),
         )
-    value = models.IntegerField('Rating',default=0)
+    rating = models.IntegerField('Rating',default=0)
     type = models.CharField('Service type',max_length=20,choices=SERVICE_TYPES)
     url = models.URLField('URL',max_length=250)
+    source = models.CharField('Source Id', max_length=250)
 
     object = models.ForeignKey(Object)
     year =models.ForeignKey(Year)
