@@ -10,11 +10,14 @@ urlpatterns = patterns('core.views',
 
     # Uncomment the next line to enable the admin:
     url(r'^$', 'main',name='core_main'),
+
+    url(r'^test_google/$', 'test_google',),
+    url(r'^test_instagram/$', 'test_instagram',),
+    url(r'^test_flickr/$', 'test_flickr',),
+
     url(r'^(?P<obj_slug>[-\w]+)$', 'object',name='core_object'),
     url(r'^(?P<obj_slug>[-\w]+)/(?P<year>[0-9]+)$', 'object_year',name='core_object_year'),
 
-    url(r'^$', 'test_google',),
-    url(r'^$', 'test_instagram',),
-    url(r'^$', 'test_flickr',),
+
 
 )
