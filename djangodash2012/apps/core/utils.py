@@ -10,8 +10,10 @@ def instagram_get_by_tag(miracle, tag):
     api = InstagramAPI(client_id=settings.INSTAGRAM_CLIENT_ID, client_secret=settings.INSTAGTAM_SECRET)
     result = api.tag_recent_media(100, 0, tag)
 
+
     for media in result[0]:
-        create_image(miracle, Image.SERVICE_TYPES['instagram'], media.standard_resolution, media.id)
+        print media.images['standard_resolution']
+        create_image(miracle, Image.SERVICE_TYPES[0], media.images['standard_resolution'], media.id)
 
     return
 
@@ -67,6 +69,9 @@ def get_client_ip(request):
     return ip
 
 def create_image(miracle, type, url, source):
+
+    #import pdb
+    #pdb.set_trace()
     image = Image()
     image.miracle = miracle
     image.type = type

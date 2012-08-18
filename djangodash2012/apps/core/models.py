@@ -31,7 +31,7 @@ class Image(models.Model):
     source = models.CharField('Source Id', max_length=250,unique=True)
 
     miracle = models.ForeignKey(Miracle)
-    year =models.ForeignKey(Year)
+    year = models.ForeignKey(Year, null=True, blank=True)
 
     def __unicode__(self):
         return  self.url

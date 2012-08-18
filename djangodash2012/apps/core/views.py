@@ -14,7 +14,7 @@ def miracle(request,miracle_slug,template='miracle.html'):
     miracle = get_object_or_404(Miracle,slug = miracle_slug)
     context = ({'miracle':miracle})
 
-    instagram_get_by_tag(miracle, miracle.google_tags)
+    instagram_get_by_tag(miracle, miracle.instag_tags)
 
     return render(request, template, context)
 
