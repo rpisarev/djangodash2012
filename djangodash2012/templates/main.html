@@ -3,31 +3,12 @@
 {% block content %}
 <div class="CenterLayout padding-10">
     <ul class="blocks">
+        {% for image in images %}
         <li><div class="padding-10 margin-10 black-50">
-            <img src="{% static 'images/attractions/liberty.png'%}" /><a href="">Statue of Liberty</a>
+            <img src="{{ image }}" /><a href="">Statue of Liberty</a>
             <p>The Statue of Liberty (Liberty Enlightening the World; French: La Liberté éclairant le monde) is a colossal neoclassical sculpture on Libe</p>
         </div></li>
-
-        <li><div class="padding-10 margin-10 black-50">
-            <img src="/images/attractions/liberty.png" /><a href="">Statue of Liberty</a>
-            <p>The Statue of Liberty (Liberty Enlightening the World; French: La Liberté éclairant le monde) is a colossal neoclassical sculpture on Liberty Island in New York Harbor, designed by Frédéric Bartholdi and dedicated on October 28, 1886. The statue, a gift to the United States from the people of France, is of a robed female figure representing Libertas, the Roman goddess of freedom, who bears a torch and a tabula ansata (a tablet evoking the law) upon which is inscribed the date of the American Declaration of Independence, July 4, 1776. A broken chain lies at her feet. The statue is an icon of freedom and of the United States: a welcoming signal to immigrants arriving from abroad.</p>
-        </div></li>
-
-        <li><div class="padding-10 margin-10 black-50">
-            <img src="/images/attractions/liberty.png" /><a href="">Statue of Liberty</a>
-            <p>The Statue of Liberty (Liberty Enlightening the World; French: La Liberté éclairant le monde) is a colossal neoclassical sculpture on Liberty Island in New York Harbor, designed by Frédéric Bartholdi and dedicated on October 28, 1886. The statue, a gift to the United States from the people of France, is of a robed female figure representing Libertas, the Roman goddess of freedom, who bears a torch and a tabula ansata (a tablet evoking the law) upon which is inscribed the date of the American Declaration of Independence, July 4, 1776. A broken chain lies at her feet. The statue is an icon of freedom and of the United States: a welcoming signal to immigrants arriving from abroad.</p>
-        </div></li>
-
-        <li><div class="padding-10 margin-10 black-50">
-            <img src="/images/attractions/liberty.png" /><a href="">Statue of Liberty</a>
-            <p>The Statue of Liberty (Liberty Enlightening the World; French: La Liberté éclairant le monde) is a colossal neoclassical sculpture on Liberty Island in New York Harbor, designed by Frédéric Bartholdi and dedicated on October 28, 1886. The statue, a gift to the United States from the people of France, is of a robed female figure representing Libertas, the Roman goddess of freedom, who bears a torch and a tabula ansata (a tablet evoking the law) upon which is inscribed the date of the American Declaration of Independence, July 4, 1776. A broken chain lies at her feet. The statue is an icon of freedom and of the United States: a welcoming signal to immigrants arriving from abroad.</p>
-        </div></li>
-
-        <li><div class="padding-10 margin-10 black-50">
-            <img src="/images/attractions/liberty.png" /><a href="">Statue of Liberty</a>
-            <p>The Statue of Liberty (Liberty Enlightening the World; French: La Liberté éclairant le monde) is a colossal neoclassical sculpture on Liberty Island in New York Harbor, designed by Frédéric Bartholdi and dedicated on October 28, 1886. The statue, a gift to the United States from the people of France, is of a robed female figure representing Libertas, the Roman goddess of freedom, who bears a torch and a tabula ansata (a tablet evoking the law) upon which is inscribed the date of the American Declaration of Independence, July 4, 1776. A broken chain lies at her feet. The statue is an icon of freedom and of the United States: a welcoming signal to immigrants arriving from abroad.</p>
-        </div></li>
-
+        {% endfor %}
     </ul>
 </div>
 {% endblock %}

@@ -49,8 +49,9 @@ def test_google(request):
 def test_instagram(request):
     return HttpResponse()
 
-def test_flickr(request):
+def test_flickr(request,template='main.html'):
     import flickrapi
+    imgs = []
     api_key = '333ecc67971ffa129d1e24f56eb45a3a'
     flickr = flickrapi.FlickrAPI(api_key)
     photos = flickr.walk(tag_mode='all',
@@ -61,8 +62,9 @@ def test_flickr(request):
         secret = photo.get('secret')
         server = photo.get('server')
         id = photo.get('id')
-        size='o'
-        url = r"""http://static.flickr.com/%s/%s_%s_%s.jpg""" % (server,id,secret,size)
-        import pdb
-        pdb.set_trace()
-    return HttpResponse()
+        farm = photo.get('farm')
+        size='z'
+        url = r"""http://farm%s.staticflickr.com/%s/%s_%s_%s.jpg""" % (farm,server,id,secret,size)
+        imgs.append(url)
+    context = {'images':imgs}
+    return render(request, template, context)
