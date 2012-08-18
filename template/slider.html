@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title></title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link rel="stylesheet" href="style.css" type="text/css" media="screen, projection" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+	<script src="/js/main.js"></script>
+	<!--[if lte IE 6]><link rel="stylesheet" href="style_ie.css" type="text/css" media="screen, projection" /><![endif]-->
+</head>
+
+<body>
+
+<div id="wrapper">
+
+	<div id="header">
+		<div class="padding-10 black-80">
+			<div class="CenterLayout">
+				<a href="/" class="logo"></a>
+				<div class="right">
+					<ul>					
+					<li>
+						<a href="https://twitter.com/share" class="twitter-share-button" data-via="mitkaaa">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+					</li>
+					<li>
+							<div id="fb-root"></div>
+						<script>(function(d, s, id) {
+							var js, fjs = d.getElementsByTagName(s)[0];
+							if (d.getElementById(id)) return;
+							js = d.createElement(s); js.id = id;
+							js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+							fjs.parentNode.insertBefore(js, fjs);
+						}(document, 'script', 'facebook-jssdk'));
+						</script>
+						<div class="fb-like" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true" data-colorscheme="dark" data-font="tahoma"></div>
+					</li>
+					
+					</ul>	
+			
+				</div>
+			</div>
+		</div>	
+	</div><!-- #header-->
+	<div id="content">
+		<div class="images" style="background-image: url('/images/attractions/liberty.jpg')">
+			<div class="under">
+				<div class="CenterLayout">
+				<h1>Tower of Liberty</h1>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel padding-10">
+			<div class="CenterLayout padding-10 black-80 radius">
+				
+				<div id="container"> 
+			        <div class="slider"></div> 
+			          <ul>
+			        	<li>Now!</li>
+			        	<li>2000</li>
+			        	<li>1990</li>
+			        	<li>1980</li>
+			        	<li>1970</li>
+			        	<li>1960</li>
+			        	<li>1950</li>
+			        	<li>1940</li>
+			        	<li>1930</li>
+			        	<li>1920</li>
+			        	<li>1910</li>
+			        </ul>
+			        <div id="slider-result">50</div>   
+			  		<input type="hidden" id="hidden"/>
+			  		<script>
+
+			  		$( ".slider" ).slider({
+			  			animate: true,
+			  			range: "min",
+			  			value: 50,
+			  			min: 0,
+			  			max: 100,
+			  			step: 10,
+
+			  			slide: function( event, ui ) {
+			  				var output;
+			  				if(ui.value==0){output='Now!'}
+			  				else output=ui.value
+			  				$( "#slider-result" ).html(output);
+			  			},
+
+			  			change: function(event, ui) {
+			  				$('#hidden').attr('value', ui.value);
+			  			}
+
+			  		});
+
+			  		</script>
+			  	</div>
+			
+			</div>
+		</div>
+		
+	</div><!-- #content-->
+
+</div><!-- #wrapper -->
+
+<div id="footer">
+	<div class="CenterLayout">
+			dsfghjk
+	</div>
+</div><!-- #footer -->
+
+</body>
+</html>
