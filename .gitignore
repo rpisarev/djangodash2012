@@ -1,3 +1,6 @@
 db.sqlite
 .idea
+*.pyc
+*~
+*.swp
 
