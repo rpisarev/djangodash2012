@@ -63,7 +63,8 @@ def parse_google(miracle, years):
             if results:
                 for image in results['responseData']['results']:
                     title = image.get('titleNoFormatting')
-                    create_image(miracle, Image.SERVICE_TYPES[2][0],image.get('url'), title,year)
+                    if len(image.get('url'))<250:
+                        create_image(miracle, Image.SERVICE_TYPES[2][0],image.get('url'), title,year)
             time.sleep(2)
     return
 
@@ -102,7 +103,7 @@ def create_image(miracle, type, url, title, year = None):
         if year is not None:
             new_image.year = year
         new_image.save()
-    except IntegrityError: #not unique
+    except : #not unique or contains invalid characters
         pass
     return
 
