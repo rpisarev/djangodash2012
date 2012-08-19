@@ -14,7 +14,7 @@ body {
 	color:#fff;
 }
 a {
-	color: blue;
+	color: #fff;
 	outline: none;
 	text-decoration: underline;
 }
@@ -197,6 +197,7 @@ span.view{
 	margin-bottom: 10px;
 	min-width: 1000px;
 	position: relative;
+	padding:30px;
 }
 
 .CenterLayout h1.caption{
