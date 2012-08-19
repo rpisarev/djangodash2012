@@ -10,6 +10,7 @@ class Miracle(models.Model):
     google_tags = models.CharField('Google tags',max_length=250)
     flickr_tags = models.CharField('Flickr tags',max_length=250)
     slug = models.SlugField('Slug',max_length=250)
+    views_count = models.IntegerField('Views count')
 
     @models.permalink
     def get_absolute_url(self):

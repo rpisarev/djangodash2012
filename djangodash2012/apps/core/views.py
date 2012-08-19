@@ -4,7 +4,8 @@ from django.db.models import Sum
 import datetime
 
 from core.models import Image,Vote,Miracle
-from .utils import get_client_ip, instagram_get_by_tag, google_get
+from local.utils import get_client_ip, instagram_get_by_tag, google_get
+from .utils import set_cookie
 
 def main(request, template='main.html'):
     miracles = Miracle.objects.all()
@@ -20,16 +21,19 @@ def miracle_year(request, miracle_slug, year):
     return HttpResponse()
 
 def vote(request,image_id,value):
-    if request.is_ajax():
+    cookie_key = "image_%s"%image_id
+    days_expire = 1
+    if request.is_ajax() and not request.COOKIE.get(cookie_key):
         try:
             user_ip = get_client_ip(request)
-            month_ago = datetime.datetime.now()-datetime.timedelta(weeks=4)
+            month_ago = datetime.datetime.now()-datetime.timedelta(days=days_expire)
             Vote.objects.get(user_ip=user_ip,created__gt=month_ago)
         except :
+                response = HttpResponse()
                 try:
                     image = Image.objects.get(pk=image_id)
                 except ObjectDoesNotExist:
-                    return HttpResponse()
+                    return response
                 vote = Vote()
                 vote.value = 1 if value=='up' else -1
                 vote.user_ip = user_ip
@@ -40,5 +44,7 @@ def vote(request,image_id,value):
                 image.rating = Vote.objects.filter(image=image)\
                     .aggregate(sum=Sum('value')).get('sum')
                 image.save()
-                return HttpResponse(image.rating)
+                response.write(image.rating)
+                set_cookie(response,cookie_key,True,days_expire)
+                return response
     return HttpResponse()

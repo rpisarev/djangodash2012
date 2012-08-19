@@ -1,5 +1,4 @@
 from django.shortcuts import HttpResponse
-from core.models import Year,Image,Miracle
 from django.conf import settings
 from django.db import IntegrityError
 
@@ -9,14 +8,18 @@ import urllib2,urllib
 import simplejson
 
 
+from core.models import Year,Image,Miracle
+
+
 def parse(request):
     miracles = Miracle.objects.all()
     years = Year.objects.all()
 
-    for miracles in miracles:
-        parse_flickr(miracle)
+    for miracle in miracles:
+#        parse_flickr(miracle)
         parse_google(miracle, years)
-        parse_instagram(miracle)
+#        parse_instagram(miracle)
+    return HttpResponse()
 
 def parse_flickr(miracle):
     flickr = flickrapi.FlickrAPI(settings.FLICKR_API)
@@ -40,6 +43,8 @@ def parse_flickr(miracle):
 
 def parse_google(miracle, years):
     for year in years:
+        start = 0
+        step = 4
         search_title = "%s in %s"%(miracle.google_tags, year.value)
         search_string = urllib.quote(search_title)
 
@@ -47,15 +52,16 @@ def parse_google(miracle, years):
         #service = build('customsearch', 'v1', developerKey=settings.GOOGLE_API)
         #request = service.list(q=tag, cx=settings.GOOGLE_PROJECT ,searchType='image')
         #result = request.execute()
+        for start in xrange(start,20,step):
+            url = ('https://ajax.googleapis.com/ajax/services/search/images?v=1.0&start=%i&q=%s'\
+                   % (start,search_string))
+            request = urllib2.Request(url, None, {'Referer': ''})
+            response = urllib2.urlopen(request)
+            results = simplejson.load(response)
 
-        url = ('https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=%s' % search_string)
-        request = urllib2.Request(url, None, {'Referer': ''})
-        response = urllib2.urlopen(request)
-        results = simplejson.load(response)
-
-        for image in results['responseData']['results']:
-            create_image(miracle, Image.SERVICE_TYPES[2],image.get('url'))
-        time.sleep(5)
+            for image in results['responseData']['results']:
+                create_image(miracle, Image.SERVICE_TYPES[2],image.get('url'))
+            time.sleep(2)
     return
 
 def parse_instagram(miracle):
@@ -74,7 +80,7 @@ def create_image(miracle, type, url, year = None):
         new_image.miracle = miracle
         new_image.type = type
         new_image.url= url
-        if year != None:
+        if year is not None:
             new_image.year = year
         new_image.save()
     except IntegrityError: #not unique
