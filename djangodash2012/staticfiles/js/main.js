@@ -14,7 +14,9 @@ $(function(){
 	},
 	function(){
 		$(this).empty()
-	})
+	}).click(function(){
+            window.location = $(this).attr('url');
+    })
 	
 	
 	

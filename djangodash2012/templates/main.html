@@ -10,7 +10,7 @@
                         <a href="{{ miracle.get_absolute_url }}" class="caption">{{ miracle.name }}</a>
                     </div>
                 </div>
-                <div class="img" style="background-image:url('{% static 'images/attractions/'%}{{ miracle.slug }}.jpg')"></div>
+                <div url="{{ miracle.get_absolute_url }}" class="img" style="background-image:url('{% static 'images/attractions/'%}{{ miracle.slug }}.jpg')"></div>
                 <div class="imagesPanel black-50" style="text-align:center;">
                     <div class="padding-10">
                         <span class="photo">10</span>
