@@ -1,7 +1,6 @@
 from django.shortcuts import HttpResponse
 from django.conf import settings
 from django.db import IntegrityError
-from instagram.client import InstagramAPI
 
 import flickrapi
 import time
@@ -27,7 +26,7 @@ def parse_flickr(miracle):
         min_taken_date='2010-01-01',
         max_taken_date='2012-12-31',
         #                sort = 'interestingness-desc',
-        #                per_page=50
+        per_page=500,
     )
     for photo in photos:
         secret = photo.get('secret')
@@ -39,6 +38,7 @@ def parse_flickr(miracle):
         title = photo.get('title')
 
         create_image(miracle, Image.SERVICE_TYPES[1][0], url, title)
+    time.sleep(2)
     return
 
 def parse_google(miracle, years):
@@ -59,24 +59,36 @@ def parse_google(miracle, years):
             response = urllib2.urlopen(request)
             results = simplejson.load(response)
 
-            for image in results['responseData']['results']:
-                title = image.get('titleNoFormatting')
-                create_image(miracle, Image.SERVICE_TYPES[2][0],image.get('url'), title)
+            if results:
+                for image in results['responseData']['results']:
+                    title = image.get('titleNoFormatting')
+                    create_image(miracle, Image.SERVICE_TYPES[2][0],image.get('url'), title)
             time.sleep(2)
     return
 
 def parse_instagram(miracle):
-    api = InstagramAPI(client_id=settings.INSTAGRAM_CLIENT_ID, client_secret=settings.INSTAGTAM_SECRET)
-
     tag = miracle.instagram_tags
-    result = api.tag_recent_media(100, 0, tag)
+    count = 20
+    next_url = 'https://api.instagram.com/v1/tags/%s/media/recent?count=%s&max_id=0&client_id=%s' % (tag, count, settings.INSTAGRAM_CLIENT_ID)
+    for i in xrange(1, 8):
+        request = urllib2.Request(next_url, None, {'Referer': ''})
+        response = urllib2.urlopen(request)
+        results = simplejson.load(response)
 
-    for media in result[0]:
-        url = media.images['standard_resolution'].url
-        title = miracle.name
-        if media.caption:
-            title = media.caption.text
-        create_image(miracle, Image.SERVICE_TYPES[0][0], url, title)
+        if not results:
+            break
+
+        next_url = results['pagination']['next_url']
+
+        for media in results['data']:
+            url = media['images']['standard_resolution']['url']
+            title = miracle.name
+            if media['caption']:
+                title = media['caption']['text']
+
+            create_image(miracle, Image.SERVICE_TYPES[0][0], url, title)
+
+        time.sleep(2)
     return
 
 def create_image(miracle, type, url, title, year = None):

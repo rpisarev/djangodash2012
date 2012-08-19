@@ -27,7 +27,7 @@ def initial_miracles(sender, **kwargs):
         {"name":"Cristo Redentor", "instagram_tags":"cristoredentor", "google_tags":"cristo redentor",
          "flickr_tags":"cristo redentor", "slug":"cristo_redentor", "description":"",},
 
-        {"name":"Giza Pyramid", "instagram_tags":"giza", "google_tags":"giza pyramid",
+        {"name":"Giza Pyramid", "instagram_tags":"gizapyramid", "google_tags":"giza pyramid",
          "flickr_tags":"giza pyramid", "slug":"giza_pyramid", "description":"",},
 
         {"name":"Statue of Liberty", "instagram_tags":"statueofliberty", "google_tags":"statue of liberty",

@@ -12,6 +12,7 @@
     <script type="text/javascript" src="{% static 'js/jquery.masonry.min.js'%}"></script>
     <script type="text/javascript" src="{% static 'js/main.js'%}"></script>
     <!--[if lte IE 6]><link rel="stylesheet" href="{% static 'css/style_ie.css' %}" type="text/css" media="screen, projection" /><![endif]-->
+    <script type="text/javascript" src="http://userapi.com/js/api/openapi.js?52"></script>
     <!--LiveInternet counter--><script type="text/javascript"><!--
         new Image().src = "//counter.yadro.ru/hit?r"+
         escape(document.referrer)+((typeof(screen)=="undefined")?"":
@@ -28,7 +29,7 @@
         {% block header %}
             <div class="padding-10 black-80">
                 <div class="CenterLayout">
-                    <a href="/" class="logo"></a>
+                    <a href="{% url core_main %}" class="logo"></a>
                     <ul class="menu">
                         <li><a href="{% url core_main %}">Home</a></li>
                         <li><a href="{% url core_about %}">About</a></li>
@@ -47,11 +48,22 @@
                                     var js, fjs = d.getElementsByTagName(s)[0];
                                     if (d.getElementById(id)) return;
                                     js = d.createElement(s); js.id = id;
-                                    js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+                                    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
                                     fjs.parentNode.insertBefore(js, fjs);
                                 }(document, 'script', 'facebook-jssdk'));
                                 </script>
-                                <div class="fb-like" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true" data-colorscheme="dark" data-font="tahoma"></div>
+                                <div class="fb-like" data-send="true" data-layout="button_count" data-width="200" data-show-faces="true" data-colorscheme="dark" data-font="tahoma"></div>
+                            </li>
+                            <li>
+                                <script type="text/javascript">
+                                    VK.init({apiId: 3085913, onlyWidgets: true});
+                                </script>
+
+                                <!-- Put this div tag to the place, where the Like block will be -->
+                                <div id="vk_like"></div>
+                                <script type="text/javascript">
+                                    VK.Widgets.Like("vk_like", {type: "mini"});
+                                </script>
                             </li>
                         </ul>
                     </div>
