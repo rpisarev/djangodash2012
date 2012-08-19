@@ -17,7 +17,6 @@ ADMINS = (
 MANAGERS = ADMINS
 
 
-
 if platform.node() != PRODUCTION_HOST:
     from settings_dev import *
 else:
