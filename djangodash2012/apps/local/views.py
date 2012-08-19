@@ -63,7 +63,8 @@ def parse_google(miracle, years):
             if results:
                 for image in results['responseData']['results']:
                     title = image.get('titleNoFormatting')
-                    create_image(miracle, Image.SERVICE_TYPES[2][0],image.get('url'), title,year)
+                    if len(image.get('url'))<250:
+                        create_image(miracle, Image.SERVICE_TYPES[2][0],image.get('url'), title,year)
             time.sleep(2)
     return
 
