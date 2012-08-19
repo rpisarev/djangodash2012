@@ -23,7 +23,7 @@ def rating(request, template='rating.html'):
     return render(request, template)
 
 def main(request, template='main.html'):
-    miracles = Miracle.objects.all()
+    miracles = Miracle.objects.order_by('?').all()
     context = ({'miracles':miracles})
     return render(request, template, context)
 

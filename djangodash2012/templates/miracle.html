@@ -1,15 +1,41 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}{{ miracle.name }} on Miracles Live{% endblock %}
 {% block description %}{{ miracle.description }}{% endblock %}
 {% block content %}
-    <h1>{{ miracle.name }}</h1>
-    <ul class="blocks">
-        {% for image in miracle.image_set.all %}
-            <li>
-                <div class="padding-10 margin-10 black-50">
-                    <img src="{{ image.url }}" />
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="images" style="background-image: url('{% static 'images/attractions/'%}{{ miracle.slug }}.jpg')">
+        <div class="under">
+            <div class="CenterLayout">
+                <h1>{{ miracle.name }}</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel padding-10">
+        <div class="CenterLayout padding-10 black-80 radius">
+
+            <div id="container">
+                <div class="slider"></div>
+                <ul>
+                    <li>Today</li>
+                    <li>2000</li>
+                    <li>1990</li>
+                    <li>1980</li>
+                    <li>1970</li>
+                    <li>1960</li>
+                    <li>1950</li>
+                    <li>1940</li>
+                    <li>1930</li>
+                    <li>1920</li>
+                    <li>1910</li>
+                </ul>
+                <div id="slider-result" class="radius"><img src="/images/loading.gif"> </div>
+                <input type="hidden" id="hidden"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="CenterLayout">
+        <div id="imagesLoad" slug="{{ miracle.slug }}" class="masonry"></div>
+    </div>
 {% endblock %}
