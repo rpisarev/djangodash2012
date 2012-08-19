@@ -290,32 +290,32 @@ span.view{
 }
 #container ul li{
 	float:left;
-	width:9.09%;
+	width:11.10%;
 	text-align:center;
 }
 
-#imagesLoad{}
-#imagesLoad .img{
+.imagesBody{}
+.imagesBody .img{
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	cursor:pointer
 }
-#imagesLoad .img .eye{
+.imagesBody .img .eye{
 	background: url('../images/eye.png') no-repeat center center;
 	width:100%;
 	height:100%;
 }
 
-#imagesLoad .box-1{width:190px;}
-#imagesLoad .box-1 .img{height:159px;width:190px;}
-#imagesLoad .box-2{width:390px;}
-#imagesLoad .box-2 .img{height:365px;width:390px;}
-#imagesLoad .box-3{width:820px;}
-#imagesLoad .box-3 .img{height:365px;width:820px;}
-#imagesLoad .box-4{width:600px;}
-#imagesLoad .box-4 .img{height:560px;width:600px;}
-#imagesLoad .imagesPanel{
+.imagesBody .box-1{width:190px;}
+.imagesBody .box-1 .img{height:159px;width:190px;}
+.imagesBody .box-2{width:390px;}
+.imagesBody .box-2 .img{height:365px;width:390px;}
+.imagesBody .box-3{width:820px;}
+.imagesBody .box-3 .img{height:365px;width:820px;}
+.imagesBody .box-4{width:600px;}
+.imagesBody .box-4 .img{height:560px;width:600px;}
+.imagesBody .imagesPanel{
 	width:100%;
 	box-shadow: 0px 1px 10px #000;
 	height:40px;
@@ -326,7 +326,7 @@ span.view{
 	overwlow:hidden
 }
 
-#imagesLoad .imagesPanel a.caption{
+.imagesBody .imagesPanel a.caption{
 	font-size:30px;
 	margin-right:10px;
 	text-transform: uppercase;
@@ -335,7 +335,7 @@ span.view{
 	text-decoration:;
 }
 
-#imagesLoad .imagesPanel h3{
+.imagesBody .imagesPanel h3{
 	height:10px;
 	float:left;
 	font-size:16px;
@@ -345,22 +345,22 @@ span.view{
 	font-weight:normal;
 }
 
-#imagesLoad .box-1 .imagesPanel h3{font-size:12px; width:90px; overflow:hidden}
-#imagesLoad .box-2 .imagesPanel h3{width:300px; overflow:hidden}
-#imagesLoad .imagesPanel .vote{
+.imagesBody .box-1 .imagesPanel h3{font-size:12px; width:90px; overflow:hidden}
+.imagesBody .box-2 .imagesPanel h3{width:300px; overflow:hidden}
+.imagesBody .imagesPanel .vote{
 	float:right;
 	position:absolute;
 	right:0;
 	padding:10px 10px 0 10px;
 }
-#imagesLoad .imagesPanel .vote a{
+.imagesBody .imagesPanel .vote a{
 	display:block;
 	margin:3px 0px;
 	float:left;
 	width:16px;
 	height:16px;
 }
-#imagesLoad .imagesPanel .vote span{
+.imagesBody .imagesPanel .vote span{
 	position:relative;
 	margin-top:-6px;
 	display: block;
@@ -373,10 +373,10 @@ span.view{
 padding:8px
 
 }
-#imagesLoad .imagesPanel .vote a.up{
+.imagesBody .imagesPanel .vote a.up{
 	background: url('../images/up.png') no-repeat;
 }
-#imagesLoad .imagesPanel .vote a.down{
+.imagesBody .imagesPanel .vote a.down{
 	background: url('../images/down.png') no-repeat;
 }
 .blackBackground{
