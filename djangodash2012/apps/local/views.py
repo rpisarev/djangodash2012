@@ -42,6 +42,7 @@ def parse_google(request):
     years = Year.objects.all()
     for miracle in miracles:
         for year in years:
+            rez = []
             search_title = "%s in %s "%(miracle.name,year.value)
             tag = miracle.google_tags
             search_string =urllib.quote(search_title+tag)
@@ -59,6 +60,7 @@ def parse_google(request):
             results = simplejson.load(response)
 
             for image in results['responseData']['results']:
+                rez.append(image)
                 try:
                     new_image = Image()
                     new_image.url= image.get('url')
@@ -66,7 +68,11 @@ def parse_google(request):
                     new_image.type = Image.SERVICE_TYPES[2]
                     new_image.year = year
                     new_image.save(force_insert=True)
+
                 except IntegrityError:
                     pass
-            time.sleep(5)
+            import pdb
+            pdb.set_trace()
+
+        time.sleep(5)
     return HttpResponse()
