@@ -40,7 +40,7 @@ def parse_flickr(miracle):
         url = r"""http://farm%s.staticflickr.com/%s/%s_%s_%s.jpg""" % (farm,server,id,secret,size)
         title = photo.get('title')
 
-        create_image(miracle, Image.SERVICE_TYPES[1], url, title)
+        create_image(miracle, Image.SERVICE_TYPES[1][0], url, title)
     return
 
 def parse_google(miracle, years):
@@ -63,7 +63,7 @@ def parse_google(miracle, years):
 
             for image in results['responseData']['results']:
                 title = image.get('titleNoFormatting')
-                create_image(miracle, Image.SERVICE_TYPES[2],image.get('url'), title)
+                create_image(miracle, Image.SERVICE_TYPES[2][0],image.get('url'), title)
             time.sleep(2)
     return
 
@@ -78,7 +78,7 @@ def parse_instagram(miracle):
         title = miracle.name
         if media.caption:
             title = media.caption.text
-        create_image(miracle, Image.SERVICE_TYPES[0], url, title)
+        create_image(miracle, Image.SERVICE_TYPES[0][0], url, title)
     return
 
 def create_image(miracle, type, url, title, year = None):
