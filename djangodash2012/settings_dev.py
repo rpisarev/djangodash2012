@@ -14,3 +14,7 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     },
 }
+
+PARSE_GOOGLE_COUNT = 20 #count google images
+PARSE_INSTAGRAM_COUNT = 8 #count instagram iteration
+PARSE_FLICKR_COUNT = 150 # count flickr photo

@@ -27,7 +27,7 @@ def parse_flickr(miracle):
         min_taken_date='2010-01-01',
         max_taken_date='2012-12-31',
         sort = 'interestingness-desc',
-        per_page=150,
+        per_page=settings.PARSE_FLICKR_COUNT,
     )
     for photo in photos.iter():
         secret = photo.get('secret')
@@ -53,7 +53,7 @@ def parse_google(miracle, years):
         #service = build('customsearch', 'v1', developerKey=settings.GOOGLE_API)
         #request = service.list(q=tag, cx=settings.GOOGLE_PROJECT ,searchType='image')
         #result = request.execute()
-        for start in xrange(start,20,step):
+        for start in xrange(start, settings.PARSE_GOOGLE_COUNT, step):
             url = ('https://ajax.googleapis.com/ajax/services/search/images?v=1.0&start=%i&q=%s'\
                    % (start,search_string))
             request = urllib2.Request(url, None, {'Referer': ''})
@@ -71,7 +71,7 @@ def parse_instagram(miracle):
     tag = miracle.instagram_tags
     count = 20
     next_url = 'https://api.instagram.com/v1/tags/%s/media/recent?count=%s&max_id=0&client_id=%s' % (tag, count, settings.INSTAGRAM_CLIENT_ID)
-    for i in xrange(1, 8):
+    for i in xrange(1, settings.PARSE_INSTAGRAM_COUNT):
         request = urllib2.Request(next_url, None, {'Referer': ''})
         response = urllib2.urlopen(request)
         results = simplejson.load(response)
