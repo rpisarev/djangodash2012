@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect,HttpResponse, render_to_response, HttpResponseRedirect
 from django.template import Context
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Sum, F
+from django.db.models import Sum, F,Q
 import datetime
 from django.conf import settings
-
+import json
 
 from core.models import Image,Vote,Miracle
 
@@ -26,6 +26,30 @@ def main(request, template='main.html'):
     miracles = Miracle.objects.all()
     context = ({'miracles':miracles})
     return render(request, template, context)
+
+def get_images(request,miracle_slug,year='now'):
+
+    big_image_alias = Image.IMAGE_SIZES[1][0]
+    small_image_alias = Image.IMAGE_SIZES[0][0]
+    session_key = 'viewed_images_%s' % miracle_slug
+
+    viewed_images = request.session.get(session_key,[])
+    import pdb
+    pdb.set_trace()
+    big_images = Image.objects.filter(Q(miracle__slug=miracle_slug)&\
+          Q(size=big_image_alias)&~Q(id__in=viewed_images))\
+          .values('id','url','size','title').order_by('?')[:3]
+    small_images_count = 3+4*(3-len(big_images))
+    small_images = Image.objects.filter(Q(miracle__slug=miracle_slug)&
+        Q(size=small_image_alias)&~Q(id__in=viewed_images)).\
+        values('id','url','size','title').order_by('?')[:small_images_count]
+    images = big_images+small_images
+    image_ids = map(lambda x:x.pk,images)
+    viewed_images = viewed_images.reverse()[len(image_ids):]+image_ids
+    request.session[session_key]=viewed_images
+
+    HttpResponse(json.dumps(tuple(images)))
+
 
 def miracle(request, miracle_slug, template='miracle.html'):
     miracle = get_object_or_404(Miracle, slug = miracle_slug)
@@ -73,6 +97,9 @@ def vote(request,image_id,value):
                 set_cookie(response,cookie_key,True,days_expire)
                 return response
     return HttpResponse()
+
+#def rating(request):
+
 
 def recalc_sizes(miracle):
     images_count = Image.objects.filter(miracle=miracle).count()
