@@ -18,5 +18,6 @@ python manage.py syncdb
 python manage.py migrate
 python manage.py runserver
 
+in browser type http://127.0.0.1:8000/ to parse image from sources, wait :)
 
 Code for Djangodash // From Ufa, Russia
