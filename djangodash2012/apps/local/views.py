@@ -1,6 +1,7 @@
 from django.shortcuts import HttpResponse
 from django.conf import settings
 from django.db import IntegrityError
+from instagram.client import InstagramAPI
 
 import flickrapi
 import time
@@ -16,7 +17,7 @@ def parse(request):
     years = Year.objects.all()
 
     for miracle in miracles:
-#        parse_flickr(miracle)
+        parse_flickr(miracle)
         parse_google(miracle, years)
         parse_instagram(miracle)
     return HttpResponse()
@@ -25,8 +26,8 @@ def parse_flickr(miracle):
     flickr = flickrapi.FlickrAPI(settings.FLICKR_API)
     photos = flickr.walk(tag_mode='all',
         tags=miracle.flickr_tags,
-        min_taken_date='2010-01-01' % year,
-        max_taken_date='2012-12-31' % year,
+        min_taken_date='2010-01-01',
+        max_taken_date='2012-12-31',
         #                sort = 'interestingness-desc',
         #                per_page=50
     )
@@ -37,8 +38,9 @@ def parse_flickr(miracle):
         farm = photo.get('farm')
         size='z'
         url = r"""http://farm%s.staticflickr.com/%s/%s_%s_%s.jpg""" % (farm,server,id,secret,size)
+        title = photo.get('title')
 
-        create_image(miracle, Image.SERVICE_TYPES[1], url)
+        create_image(miracle, Image.SERVICE_TYPES[1], url, title)
     return
 
 def parse_google(miracle, years):
@@ -60,7 +62,8 @@ def parse_google(miracle, years):
             results = simplejson.load(response)
 
             for image in results['responseData']['results']:
-                create_image(miracle, Image.SERVICE_TYPES[2],image.get('url'))
+                title = image.get('titleNoFormatting')
+                create_image(miracle, Image.SERVICE_TYPES[2],image.get('url'), title)
             time.sleep(2)
     return
 
@@ -71,15 +74,20 @@ def parse_instagram(miracle):
     result = api.tag_recent_media(100, 0, tag)
 
     for media in result[0]:
-        create_image(miracle, Image.SERVICE_TYPES[0], media.images['standard_resolution'])
+        url = media.images['standard_resolution'].url
+        title = miracle.name
+        if media.caption:
+            title = media.caption.text
+        create_image(miracle, Image.SERVICE_TYPES[0], url, title)
     return
 
-def create_image(miracle, type, url, year = None):
+def create_image(miracle, type, url, title, year = None):
     try:
         new_image = Image()
         new_image.miracle = miracle
         new_image.type = type
-        new_image.url= url
+        new_image.url = url
+        new_image.title = title
         if year is not None:
             new_image.year = year
         new_image.save()
