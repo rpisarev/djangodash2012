@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect,HttpResponse, render_to_response
+from django.template import Context
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Sum, F
 import datetime
+
 
 from core.models import Image,Vote,Miracle
 
@@ -15,13 +17,13 @@ def main(request, template='main.html'):
 
 def miracle(request, miracle_slug, template='miracle.html'):
     miracle = get_object_or_404(Miracle, slug = miracle_slug)
-    context = ({'miracle':miracle})
-    response = render_to_response(template, context=context)
+    context = Context({'miracle':miracle})
+    response = render_to_response(template, context_instance=context)
     cookie_key = "miracle_%s" % miracle_slug
     days_expire = 1
     if not request.COOKIES.get(cookie_key):
-        set_cookie(response,key,value,days_expire)
-        Miracle.objects.filter(slug=miracle_slug).update(views_count=F('views')+1)
+        set_cookie(response,cookie_key,True,days_expire)
+        Miracle.objects.filter(slug=miracle_slug).update(views_count=F('views_count')+1)
 
     return render(request, template, context)
 
