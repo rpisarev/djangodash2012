@@ -15,20 +15,20 @@ def parse(request):
 
     for miracle in miracles:
         parse_flickr(miracle)
-        parse_google(miracle, years)
-        parse_instagram(miracle)
+#        parse_google(miracle, years)
+#        parse_instagram(miracle)
     return HttpResponse()
 
 def parse_flickr(miracle):
     flickr = flickrapi.FlickrAPI(settings.FLICKR_API)
-    photos = flickr.walk(tag_mode='all',
+    photos = flickr.photos_search(tag_mode='all',
         tags=miracle.flickr_tags,
         min_taken_date='2010-01-01',
         max_taken_date='2012-12-31',
-        #                sort = 'interestingness-desc',
-        per_page=500,
+        sort = 'interestingness-desc',
+        per_page=200,
     )
-    for photo in photos:
+    for photo in photos.iter():
         secret = photo.get('secret')
         server = photo.get('server')
         id = photo.get('id')

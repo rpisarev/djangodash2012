@@ -5,6 +5,7 @@ from django.db.models import Sum, F,Q
 import datetime
 from django.conf import settings
 import json
+from itertools import chain
 
 from core.models import Image,Vote,Miracle,Year
 
@@ -29,11 +30,12 @@ def main(request, template='main.html'):
 
 def get_images(request,miracle_slug,year='today'):
     service_types = ('google',)
+    if year == 'today':
+        year = None
     try:
         year = Year.objects.get(value=year)
     except ObjectDoesNotExist:
         service_types = ('flickr','instagram')
-        year=None
     big_image_alias = Image.IMAGE_SIZES[1][0]
     small_image_alias = Image.IMAGE_SIZES[0][0]
     session_key = 'viewed_images_%s' % miracle_slug
@@ -48,12 +50,13 @@ def get_images(request,miracle_slug,year='today'):
         &Q(year=year)&Q(miracle__slug=miracle_slug)&
         Q(size=small_image_alias)&~Q(id__in=viewed_images)).\
         values('id','url','size','title','rating').order_by('?')[:small_images_count]
-    images = big_images+small_images
-    image_ids = map(lambda x:x.pk,images)
-    viewed_images = viewed_images.reverse()[len(image_ids):]+image_ids
+    images = list(chain(big_images, small_images))
+    image_ids = map(lambda x:x.get('id'),images)
+    viewed_images.reverse()
+    viewed_images = viewed_images[len(image_ids):]+image_ids
     request.session[session_key]=viewed_images
 
-    HttpResponse(json.dumps(tuple(images)))
+    return HttpResponse(json.dumps(tuple(images)))
 
 
 def miracle(request, miracle_slug, template='miracle.html'):
