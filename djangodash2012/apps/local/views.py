@@ -11,7 +11,7 @@ from core.models import Year,Image,Miracle
 from local.utils import get_headers_only
 
 def parse(request):
-    miracles = Miracle.objects.all()
+    miracles = Miracle.objects.order_by('-id').all()
     years = Year.objects.all()
 
     for miracle in miracles:
@@ -73,24 +73,27 @@ def parse_instagram(miracle):
     count = 20
     next_url = 'https://api.instagram.com/v1/tags/%s/media/recent?count=%s&max_id=0&client_id=%s' % (tag, count, settings.INSTAGRAM_CLIENT_ID)
     for i in xrange(1, settings.PARSE_INSTAGRAM_COUNT):
-        request = urllib2.Request(next_url, None, {'Referer': ''})
-        response = urllib2.urlopen(request)
-        results = simplejson.load(response)
+        try:
+            request = urllib2.Request(next_url, None, {'Referer': ''})
+            response = urllib2.urlopen(request)
+            results = simplejson.load(response)
 
-        if not results:
-            break
+            if not results:
+                break
 
-        next_url = results['pagination']['next_url']
+            next_url = results['pagination']['next_url']
 
-        for media in results['data']:
-            url = media['images']['standard_resolution']['url']
-            title = miracle.name
-            if media['caption']:
-                title = media['caption']['text']
+            for media in results['data']:
+                url = media['images']['standard_resolution']['url']
+                title = miracle.name
+                if media['caption']:
+                    title = media['caption']['text']
 
-            create_image(miracle, Image.SERVICE_TYPES[0][0], url, title)
+                create_image(miracle, Image.SERVICE_TYPES[0][0], url, title)
 
-        time.sleep(2)
+            time.sleep(2)
+        except:
+            pass #time is end
     return
 
 def create_image(miracle, type, url, title, year = None):
