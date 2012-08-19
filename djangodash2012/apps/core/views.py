@@ -61,7 +61,7 @@ def get_images(request,miracle_slug,year='today'):
 
 def miracle(request, miracle_slug, template='miracle.html'):
     miracle = get_object_or_404(Miracle, slug = miracle_slug)
-    years = Year.objects.all()
+    years = Year.objects.order_by('-value').all()
     context = Context({'miracle':miracle, 'years':years})
     response = render_to_response(template, context_instance=context)
     cookie_key = "miracle_%s" % miracle_slug
@@ -71,9 +71,6 @@ def miracle(request, miracle_slug, template='miracle.html'):
         Miracle.objects.filter(slug=miracle_slug).update(views_count=F('views_count')+1)
 
     return response
-
-def miracle_year(request, miracle_slug, year):
-    return HttpResponse()
 
 def vote(request,image_id,value):
     cookie_key = "image_%s"%image_id

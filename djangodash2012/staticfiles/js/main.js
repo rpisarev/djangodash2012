@@ -30,10 +30,11 @@ $(function(){
             dataType: 'json',
             url:url,
             beforeSend: function () {
-
+                loader_set();
             },
             success: function(data) {
-                this_vote.parent().find('span').text(data['rating'])
+                this_vote.parent().find('span').text(data['rating']);
+                loader_unset();
             }
         });
     })
@@ -70,21 +71,14 @@ $(function(){
 
 				$.each(data, function(key, val) {
 					i++;
-
-					var size;
-					if(Math.floor( Math.random( ) * (1+1))  == 0){
-						size ='box-1'
-					}
-					else{
-						size ='box-2'
-					}
+					var size = val.size;
 
 					var title='';
 					if(val['title']) title = val['title'];
 					items.push('<div class="'+size+' box masonry-brick float-left"><div class="img" style="background-image:url('+val['url']+')"></div><div class="imagesPanel black-50"><h3>'+title+'</h3><div class="vote"><span>'+val['rating']+'</span><a href="javascript:void(null);" alt="'+val['id']+'" class="vote_link up" type="up"></a><a href="javascript:void(null);" alt="'+val['id']+'" class="vote_link down" type="down"></a></div></div></div>');
 				});
 
-				$container.prepend(items.join('')).masonry( 'reload' );
+				$container.prepend(items.join('')).masonry('reload' );
 			}
 		});
 		//return i;
@@ -110,7 +104,7 @@ $(function(){
         $('#slider-result').html(output);
     }
 
-	var inter = setInterval(interval, 60000)
+	var inter = setInterval(interval, 30000)
 
 	$( ".slider" ).slider({
 		animate: true,
@@ -123,7 +117,9 @@ $(function(){
 		slide: function( event, ui ) {
 			//var output;
 			if(ui.value==0){output='today'}
-			else output=2000 - ui.value+10
+			else{
+                output=2000 - ui.value+10
+            }
 			loader_unset();
 			$container.empty()
 			box()
