@@ -7,7 +7,8 @@ from core.models import Image,Vote,Miracle
 from .utils import get_client_ip, instagram_get_by_tag, google_get
 
 def main(request,template='main.html'):
-    context = ({})
+    miracles = Miracle.objects.all()
+    context = ({'miracles':miracles})
     return render(request, template, context)
 
 def miracle(request,miracle_slug,template='miracle.html'):
@@ -15,9 +16,7 @@ def miracle(request,miracle_slug,template='miracle.html'):
     context = ({'miracle':miracle})
 
     #instagram_get_by_tag(miracle)
-    google_get(miracle)
-
-
+    #google_get(miracle)
     return render(request, template, context)
 
 def miracle_year(request,miracle_slug,year):

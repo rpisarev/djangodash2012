@@ -11,6 +11,11 @@ class Miracle(models.Model):
     flickr_tags = models.CharField('Flickr tags',max_length=250)
     slug = models.SlugField('Slug',max_length=250)
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('core_miracle', (), {'miracle_slug': self.slug})
+
+
     def __unicode__(self):
         return self.name
 
