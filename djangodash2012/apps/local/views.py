@@ -16,8 +16,8 @@ def parse(request):
 
     for miracle in miracles:
         parse_flickr(miracle)
-#        parse_google(miracle, years)
-#        parse_instagram(miracle)
+        parse_google(miracle, years)
+        parse_instagram(miracle)
     return HttpResponse()
 
 def parse_flickr(miracle):
@@ -63,7 +63,7 @@ def parse_google(miracle, years):
             if results:
                 for image in results['responseData']['results']:
                     title = image.get('titleNoFormatting')
-                    create_image(miracle, Image.SERVICE_TYPES[2][0],image.get('url'), title)
+                    create_image(miracle, Image.SERVICE_TYPES[2][0],image.get('url'), title,year)
             time.sleep(2)
     return
 
