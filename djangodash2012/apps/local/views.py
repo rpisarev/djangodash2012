@@ -10,7 +10,6 @@ import simplejson
 
 from core.models import Year,Image,Miracle
 
-
 def parse(request):
     miracles = Miracle.objects.all()
     years = Year.objects.all()

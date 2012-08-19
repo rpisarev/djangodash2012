@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-
+import sys
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -14,8 +14,12 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('local.urls')),
+
     url(r'^', include('core.urls')),
 
 
 )
+
+RUNNING_DEVSERVER = (sys.argv[1] == 'runserver')
+if RUNNING_DEVSERVER:
+    urlpatterns+=patterns('',url(r'^', include('local.urls')),)
