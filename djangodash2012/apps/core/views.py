@@ -52,13 +52,13 @@ def get_images(request,miracle_slug,initial,year='today'):
         big_images_num = random.randint(1,2)
         small_images_num = 0
 
-    big_images = Image.objects.filter(Q(type__in=service_types)\
+    big_images = Image.objects.filter(Q(rating__gt=-3),Q(type__in=service_types)\
         &Q(year=year)& Q(miracle__slug=miracle_slug)&
         Q(size=big_image_alias)&~Q(id__in=viewed_images))\
         .values('id','url','size','title','rating').order_by('?')[:big_images_num]
 
     small_images_count = small_images_num+4*(3-len(big_images))
-    small_images = Image.objects.filter(Q(type__in=service_types)\
+    small_images = Image.objects.filter(Q(rating__gt=-3),Q(type__in=service_types)\
         &Q(year=year)&Q(miracle__slug=miracle_slug)&
         Q(size=small_image_alias)&~Q(id__in=viewed_images)).\
         values('id','url','size','title','rating').order_by('?')[:small_images_count]
