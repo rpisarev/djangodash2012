@@ -4,8 +4,8 @@ from django.db.models import Sum, F
 import datetime
 
 from core.models import Image,Vote,Miracle
-from local.utils import get_client_ip
-from .utils import set_cookie
+
+from .utils import get_client_ip, set_cookie
 
 
 def main(request, template='main.html'):
