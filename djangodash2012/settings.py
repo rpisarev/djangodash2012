@@ -14,6 +14,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+PRODUCTION_HOST = 'vps3807.nqhost.com'
+
 if platform.node() != PRODUCTION_HOST:
     from settings_dev import *
 else:
@@ -156,7 +158,6 @@ LOGGING = {
     }
 }
 
-PRODUCTION_HOST = 'dash.chodex.ru'
 
 
 
