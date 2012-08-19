@@ -15,7 +15,4 @@ urlpatterns = patterns('core.views',
 
     url(r'^miracle(?P<miracle_slug>[-\w]+)$', 'miracle', name='core_miracle'),
     url(r'^miracle(?P<miracle_slug>[-\w]+)/(?P<year>[0-9]+)$', 'miracle_year', name='core_miracle_year'),
-
-
-
 )

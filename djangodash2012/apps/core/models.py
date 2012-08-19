@@ -31,10 +31,15 @@ class Image(models.Model):
         ('flickr', 'Flickr'),
         ('google', 'Google'),
         )
+    IMAGE_SIZES=(
+        ('box-1','Small'),
+        ('box-2',('Big'))
+    )
     rating = models.IntegerField('Rating',default=0)
     type = models.CharField('Service type',max_length=20,choices=SERVICE_TYPES)
     url = models.URLField('URL',max_length=250,unique=True)
     title = models.CharField('Title', max_length=250,blank=True,null=True)
+    size = models.CharField('Image size',max_length=20,choices=IMAGE_SIZES)
 
     miracle = models.ForeignKey(Miracle)
     year = models.ForeignKey(Year, null=True, blank=True)

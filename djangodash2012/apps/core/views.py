@@ -3,6 +3,7 @@ from django.template import Context
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Sum, F
 import datetime
+from django.conf import settings
 
 
 from core.models import Image,Vote,Miracle
@@ -31,6 +32,8 @@ def miracle_year(request, miracle_slug, year):
     return HttpResponse()
 
 def vote(request,image_id,value):
+    import pdb
+    pdb.set_trace()
     cookie_key = "image_%s"%image_id
     days_expire = 1
     if request.is_ajax() and not request.COOKIES.get(cookie_key):
@@ -59,3 +62,19 @@ def vote(request,image_id,value):
                 set_cookie(response,cookie_key,True,days_expire)
                 return response
     return HttpResponse()
+
+def recalc_sizes(miracle):
+    images_count = Image.objects.filter(miracle=miracle).count()
+    big_image_alias = Image.IMAGE_SIZES[1][0]
+    small_image_alias = Image.IMAGE_SIZES[0][0]
+    big_image_num = int(images_count*settings.BIG_IMAGES_RATIO)
+
+    images_to_big= Image.objects.filter(miracle=miracle).order_by('-rating')\
+        .values('id')[:big_image_num]
+    Image.objects.filter(id__in=images_to_big).update(size=big_image_alias)
+
+    images_to_small = Image.objects.filter(miracle=miracle).order_by('-rating')\
+        .values('id')[big_image_num:]
+    Image.objects.filter(id__in=images_to_small).update(size=small_image_alias)
+
+    return
