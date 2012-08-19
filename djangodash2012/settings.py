@@ -5,6 +5,8 @@ import platform
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 
+PRODUCTION_HOST = 'vps3807.nqhost.com'
+
 DEBUG = (platform.node() != PRODUCTION_HOST)
 TEMPLATE_DEBUG = DEBUG
 
@@ -14,7 +16,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-PRODUCTION_HOST = 'vps3807.nqhost.com'
+
 
 if platform.node() != PRODUCTION_HOST:
     from settings_dev import *
