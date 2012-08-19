@@ -61,7 +61,8 @@ def get_images(request,miracle_slug,year='today'):
 
 def miracle(request, miracle_slug, template='miracle.html'):
     miracle = get_object_or_404(Miracle, slug = miracle_slug)
-    context = Context({'miracle':miracle})
+    years = Year.objects.all()
+    context = Context({'miracle':miracle, 'years':years})
     response = render_to_response(template, context_instance=context)
     cookie_key = "miracle_%s" % miracle_slug
     days_expire = 1
