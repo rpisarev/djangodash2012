@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 
 PRODUCTION_HOST = 'vps3807.nqhost.com'
 
-DEBUG = (platform.node() != PRODUCTION_HOST)
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -15,7 +15,6 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
 
 
 if platform.node() != PRODUCTION_HOST:
