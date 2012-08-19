@@ -15,6 +15,6 @@ DATABASES = {
     },
 }
 
-PARSE_GOOGLE_COUNT = 20 #count google images
-PARSE_INSTAGRAM_COUNT = 8 #count instagram iteration
-PARSE_FLICKR_COUNT = 150 # count flickr photo
+PARSE_GOOGLE_COUNT = 8 #count google images
+PARSE_INSTAGRAM_COUNT = 2 #count instagram iteration
+PARSE_FLICKR_COUNT = 30 # count flickr photo
