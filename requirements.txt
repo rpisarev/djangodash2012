@@ -2,6 +2,5 @@ django
 south
 httplib2
 simplejson
-python-instagram
 flickrapi
 gunicorn

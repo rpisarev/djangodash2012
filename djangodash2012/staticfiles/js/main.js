@@ -36,7 +36,9 @@ $(function(){
                 loader_set();
             },
             success: function(data) {
-                this_vote.parent().find('span').text(data['rating']);
+                if(data){
+                    this_vote.parent().find('span').text(data['rating']);
+                }
                 loader_unset();
             }
         });
@@ -51,6 +53,15 @@ $(function(){
 		$('.blackBackground').fadeIn()
 		$('#lightbox').css('margin-top',-$('#lightbox img').height()/2)
 	});
+
+    $('#ratingBody .img').live('click',function(){
+        var img = $(this).css('background-image').split('url(').join('').split(')').join('').split('"').join('')
+
+        $('#lightbox img').attr('src',img)
+        var images_height = $('#lightbox img').attr('src',img)
+        $('.blackBackground').fadeIn()
+        $('#lightbox').css('margin-top',-$('#lightbox img').height()/2)
+    });
 
 	$('.blackBackground').click(function(){
 		$(this).fadeOut();
@@ -126,7 +137,7 @@ $(function(){
             }
 			loader_unset();
 			$container.empty()
-			box()
+			box(1);
 		}
 	});
 });
