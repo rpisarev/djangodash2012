@@ -103,7 +103,7 @@ def create_image(miracle, type, url, title, year = None):
         if year is not None:
             new_image.year = year
         new_image.save()
-    except IntegrityError: #not unique
+    except : #not unique or contains invalid characters
         pass
     return
 
