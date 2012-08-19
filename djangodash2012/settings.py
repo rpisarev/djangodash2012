@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'south',
     'flickrapi',
+    'gunicorn',
 
     'core',
 )

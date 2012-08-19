@@ -8,7 +8,6 @@ import time
 import urllib2,urllib
 import simplejson
 
-
 from core.models import Year,Image,Miracle
 
 

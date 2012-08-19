@@ -4,3 +4,4 @@ httplib2
 simplejson
 python-instagram
 flickrapi
+gunicorn
