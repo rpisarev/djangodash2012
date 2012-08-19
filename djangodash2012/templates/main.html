@@ -2,15 +2,23 @@
 {% load static %}
 {% block content %}
 <div class="CenterLayout padding-10">
-    <ul class="blocks">
+    <div id="imagesLoad">
         {% for miracle in miracles %}
-            <li>
-                <div class="padding-10 margin-10 black-50">
-                    <img src="/images/attractions/liberty.png" /><a href="{{ miracle.get_absolute_url }}">{{ miracle.name }}</a>
-                    <p>The Statue of Liberty (Liberty Enlightening the World; French: La Liberté éclairant le monde) is a colossal neoclassical sculpture on Liberty Island in New York Harbor, designed by Frédéric Bartholdi and dedicated on October 28, 1886. The statue, a gift to the United States from the people of France, is of a robed female figure representing Libertas, the Roman goddess of freedom, who bears a torch and a tabula ansata (a tablet evoking the law) upon which is inscribed the date of the American Declaration of Independence, July 4, 1776. A broken chain lies at her feet. The statue is an icon of freedom and of the United States: a welcoming signal to immigrants arriving from abroad.</p>
+            <div class="box-2 float-left">
+                <div class="imagesPanel black-50 radius-top" style="text-align:center;">
+                    <div class="padding-10">
+                        <a href="{{ miracle.get_absolute_url }}" class="caption">{{ miracle.name }}</a>
+                    </div>
                 </div>
-            </li>
+                <div class="img" style="background-image:url('{% static 'images/attractions/'%}{{ miracle.slug }}.jpg')"></div>
+                <div class="imagesPanel black-50" style="text-align:center;">
+                    <div class="padding-10">
+                        <span class="photo">10</span>
+                        <span class="view">{{ miracle.views_count }}</span>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endblock %}
