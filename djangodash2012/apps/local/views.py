@@ -8,71 +8,75 @@ import time
 import urllib2,urllib
 import simplejson
 
-def parse_flickr(request):
+
+def parse(request):
     miracles = Miracle.objects.all()
     years = Year.objects.all()
-    for miracle in miracles:
-        for year in years:
-            api_key = '333ecc67971ffa129d1e24f56eb45a3a'
-            flickr = flickrapi.FlickrAPI(api_key)
-            photos = flickr.walk(tag_mode='all',
-                tags=miracle.flickr_tags,
-                min_taken_date='%s-01-01' % year,
-                max_taken_date='$s-12-31' % year,
-#                sort = 'interestingness-desc',
-#                per_page=50
-            )
-            for photo in photos:
-                secret = photo.get('secret')
-                server = photo.get('server')
-                id = photo.get('id')
-                farm = photo.get('farm')
-                size='z'
-                url = r"""http://farm%s.staticflickr.com/%s/%s_%s_%s.jpg""" % (farm,server,id,secret,size)
-                image = Image()
-                image.url = url
-                image.miracle = miracle
-                image.type = 'flickr'
-                image.year = year
-                image.save()
-    return HttpResponse()
 
-def parse_google(request):
-    miracles = Miracle.objects.all()
-    years = Year.objects.all()
-    for miracle in miracles:
-        for year in years:
-            rez = []
-            search_title = "%s in %s "%(miracle.name,year.value)
-            tag = miracle.google_tags
-            search_string =urllib.quote(search_title+tag)
-            #custom search zaebal
-            #service = build('customsearch', 'v1', developerKey=settings.GOOGLE_API)
+    for miracles in miracles:
+        parse_flickr(miracle)
+        parse_google(miracle, years)
+        parse_instagram(miracle)
 
-            #request = service.list(q=tag, cx=settings.GOOGLE_PROJECT ,searchType='image')
-            #result = request.execute()
+def parse_flickr(miracle):
+    flickr = flickrapi.FlickrAPI(settings.FLICKR_API)
+    photos = flickr.walk(tag_mode='all',
+        tags=miracle.flickr_tags,
+        min_taken_date='2010-01-01' % year,
+        max_taken_date='2012-12-31' % year,
+        #                sort = 'interestingness-desc',
+        #                per_page=50
+    )
+    for photo in photos:
+        secret = photo.get('secret')
+        server = photo.get('server')
+        id = photo.get('id')
+        farm = photo.get('farm')
+        size='z'
+        url = r"""http://farm%s.staticflickr.com/%s/%s_%s_%s.jpg""" % (farm,server,id,secret,size)
 
-            url = ('https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=%s' % search_string)
-            request = urllib2.Request(url, None, {'Referer': ''})
+        create_image(miracle, Image.SERVICE_TYPES[1], url)
+    return
 
-            response = urllib2.urlopen(request)
+def parse_google(miracle, years):
+    for year in years:
+        search_title = "%s in %s"%(miracle.google_tags, year.value)
+        search_string = urllib.quote(search_title)
 
-            results = simplejson.load(response)
+        #custom search feature request
+        #service = build('customsearch', 'v1', developerKey=settings.GOOGLE_API)
+        #request = service.list(q=tag, cx=settings.GOOGLE_PROJECT ,searchType='image')
+        #result = request.execute()
 
-            for image in results['responseData']['results']:
-                rez.append(image)
-                try:
-                    new_image = Image()
-                    new_image.url= image.get('url')
-                    new_image.miracle = miracle
-                    new_image.type = Image.SERVICE_TYPES[2]
-                    new_image.year = year
-                    new_image.save(force_insert=True)
+        url = ('https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=%s' % search_string)
+        request = urllib2.Request(url, None, {'Referer': ''})
+        response = urllib2.urlopen(request)
+        results = simplejson.load(response)
 
-                except IntegrityError:
-                    pass
-            import pdb
-            pdb.set_trace()
-
+        for image in results['responseData']['results']:
+            create_image(miracle, Image.SERVICE_TYPES[2],image.get('url'))
         time.sleep(5)
-    return HttpResponse()
+    return
+
+def parse_instagram(miracle):
+    api = InstagramAPI(client_id=settings.INSTAGRAM_CLIENT_ID, client_secret=settings.INSTAGTAM_SECRET)
+
+    tag = miracle.instag_tags
+    result = api.tag_recent_media(100, 0, tag)
+
+    for media in result[0]:
+        create_image(miracle, Image.SERVICE_TYPES[0], media.images['standard_resolution'])
+    return
+
+def create_image(miracle, type, url, year = None):
+    try:
+        new_image = Image()
+        new_image.miracle = miracle
+        new_image.type = type
+        new_image.url= url
+        if year != None:
+            new_image.year = year
+        new_image.save()
+    except IntegrityError: #not unique
+        pass
+    return
