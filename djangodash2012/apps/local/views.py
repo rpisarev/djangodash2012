@@ -17,6 +17,7 @@ def parse(request):
         parse_flickr(miracle)
         parse_google(miracle, years)
         parse_instagram(miracle)
+    return HttpResponse()
 
 def parse_flickr(miracle):
     flickr = flickrapi.FlickrAPI(settings.FLICKR_API)
