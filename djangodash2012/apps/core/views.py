@@ -4,7 +4,6 @@ from django.db.models import Sum
 import datetime
 
 from core.models import Image,Vote,Miracle
-from local.utils import get_client_ip, instagram_get_by_tag, google_get
 from .utils import set_cookie
 
 
