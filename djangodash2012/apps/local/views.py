@@ -61,10 +61,11 @@ def parse_google(miracle, years):
             results = simplejson.load(response)
 
             if results:
-                for image in results['responseData']['results']:
-                    title = image.get('titleNoFormatting')
-                    if len(image.get('url'))<250:
-                        create_image(miracle, Image.SERVICE_TYPES[2][0],image.get('url'), title,year)
+                if results['responseData']['results'] is not None:
+                    for image in results['responseData']['results']:
+                        title = image.get('titleNoFormatting')
+                        if len(image.get('url'))<250:
+                            create_image(miracle, Image.SERVICE_TYPES[2][0],image.get('url'), title,year)
             time.sleep(2)
     return
 
