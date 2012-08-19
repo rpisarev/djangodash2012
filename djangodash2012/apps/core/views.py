@@ -82,8 +82,7 @@ def vote(request,image_id,value):
             user_ip = get_client_ip(request)
             time_ago = datetime.datetime.now()-datetime.timedelta(days=days_expire)
             Vote.objects.get(user_ip=user_ip,created__gt=time_ago,image_id=image_id)
-
-        except :
+        except ObjectDoesNotExist:
                 response = HttpResponse()
                 try:
                     image = Image.objects.get(pk=image_id)
@@ -106,8 +105,6 @@ def vote(request,image_id,value):
                 set_cookie(response,cookie_key,True,days_expire)
                 return response
     return HttpResponse()
-
-#def rating(request):
 
 
 def recalc_sizes(miracle):

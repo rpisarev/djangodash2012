@@ -8,6 +8,7 @@ import urllib2,urllib
 import simplejson
 
 from core.models import Year,Image,Miracle
+from local.utils import get_headers_only
 
 def parse(request):
     miracles = Miracle.objects.all()
@@ -104,3 +105,18 @@ def create_image(miracle, type, url, title, year = None):
     except IntegrityError: #not unique
         pass
     return
+
+def clean_images(request):
+    images = Image.objects.all()
+    deleted = 0
+    for image in images:
+        try:
+            headers = get_headers_only(image.url)
+        except urllib2.URLError:
+            image.delete()
+            deleted+=1
+            continue
+        if not headers.get('content-type','').find('image')>-1:
+            image.delete()
+            deleted+=1
+    return HttpResponse("%i images deleted " % deleted)

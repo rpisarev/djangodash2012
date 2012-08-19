@@ -1,10 +1,20 @@
-from django.conf import settings
+import urllib2
 
+class HeadRequest(urllib2.Request):
+    def get_method(self):
+        return 'HEAD'
 
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
+def get_headers_only(url, redirections=True):
+    opener = urllib2.OpenerDirector()
+    opener.add_handler(urllib2.HTTPHandler())
+    opener.add_handler(urllib2.HTTPDefaultErrorHandler())
+    if redirections:
+        # HTTPErrorProcessor makes HTTPRedirectHandler work
+        opener.add_handler(urllib2.HTTPErrorProcessor())
+        opener.add_handler(urllib2.HTTPRedirectHandler())
+    try:
+        res = opener.open(HeadRequest(url))
+    except urllib2.HTTPError, res:
+        pass
+    res.close()
+    return dict(headers=res.info())
