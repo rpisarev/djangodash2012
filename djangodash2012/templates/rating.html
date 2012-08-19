@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Rating{% endblock %}
 {% block content %}
-
+<div class="CenterLayout padding-10">
+    <div id="mainBody" class="imagesBody">
+	{% for image in images %}
+	      <div class="box-2 float-left">
+	                <div class="imagesPanel black-50 radius-top" style="text-align:center;">
+	                    <div class="padding-10">
+	                        <a href="{{ image.miracle.get_absolute_url }}" class="caption">{{ image.miracle.name }}</a>
+	                    </div>
+	                </div>
+	                <div url="{{ image.miracle.get_absolute_url }}" class="img" style="background-image:url('{{image.url}}')"></div>
+	                <div class="imagesPanel black-50" style="text-align:center;">
+	                   {{ image.title }}
+	                </div>
+	            </div>
+	{% endfor %}
+	</div>
+</div>
 {% endblock %}

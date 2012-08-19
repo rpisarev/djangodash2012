@@ -2,17 +2,17 @@ from django.shortcuts import render, get_object_or_404, redirect,HttpResponse, r
 from django.template import Context
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Sum, F,Q
-import datetime
 from django.conf import settings
-import json
 from itertools import chain
+import json
+import datetime
+import random
 
 from core.models import Image,Vote,Miracle,Year
-
 from .utils import get_client_ip, set_cookie
 
 
-def random(request):
+def random_miracle(request):
     miracle = Miracle.objects.order_by('?')[0]
     return HttpResponseRedirect(miracle.get_absolute_url())
 
@@ -20,8 +20,11 @@ def about(request, template='about.html'):
     return render(request, template)
 
 def rating(request, template='rating.html'):
-    # rating
-    return render(request, template)
+    images = Image.objects.all().order_by("-rating")[:24]
+    context = {
+    'images':images,
+    }
+    return render(request, template,context)
 
 def main(request, template='main.html'):
     miracles = Miracle.objects.order_by('?').all()
@@ -40,17 +43,29 @@ def get_images(request,miracle_slug,initial,year='today'):
     small_image_alias = Image.IMAGE_SIZES[0][0]
     session_key = 'viewed_images_%s' % miracle_slug
 
-    viewed_images = request.session.get(session_key,[])
+    if int(initial) == 1:
+        big_images_num = 3
+        small_images_num = 12
+        viewed_images = []        
+    else:
+        viewed_images = request.session.get(session_key,[])
+        big_images_num = random.randint(1,2)
+        small_images_num = 0
+
     big_images = Image.objects.filter(Q(type__in=service_types)\
         &Q(year=year)& Q(miracle__slug=miracle_slug)&
         Q(size=big_image_alias)&~Q(id__in=viewed_images))\
-        .values('id','url','size','title','rating').order_by('?')[:3]
-    small_images_count = 12+4*(3-len(big_images))
+        .values('id','url','size','title','rating').order_by('?')[:big_images_num]
+
+    small_images_count = small_images_num+4*(3-len(big_images))
     small_images = Image.objects.filter(Q(type__in=service_types)\
         &Q(year=year)&Q(miracle__slug=miracle_slug)&
         Q(size=small_image_alias)&~Q(id__in=viewed_images)).\
         values('id','url','size','title','rating').order_by('?')[:small_images_count]
+    
     images = list(chain(big_images, small_images))
+    if len(images)==0:
+        return HttpResponse()
     image_ids = map(lambda x:x.get('id'),images)
     viewed_images.reverse()
     viewed_images = viewed_images[len(image_ids):]+image_ids
