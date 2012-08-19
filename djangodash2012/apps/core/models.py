@@ -44,6 +44,7 @@ class Image(models.Model):
     miracle = models.ForeignKey(Miracle)
     year = models.ForeignKey(Year, null=True, blank=True)
 
+
     def __unicode__(self):
         return  self.url
 
