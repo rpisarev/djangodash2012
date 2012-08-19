@@ -70,7 +70,7 @@ def parse_google(miracle, years):
 def parse_instagram(miracle):
     api = InstagramAPI(client_id=settings.INSTAGRAM_CLIENT_ID, client_secret=settings.INSTAGTAM_SECRET)
 
-    tag = miracle.instag_tags
+    tag = miracle.instagram_tags
     result = api.tag_recent_media(100, 0, tag)
 
     for media in result[0]:
