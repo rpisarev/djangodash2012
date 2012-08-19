@@ -11,7 +11,6 @@ def initial_years(sender, **kwargs):
             new_year.save()
 
 def initial_miracles(sender, **kwargs):
-
     """
     Predefined miracles
     """
@@ -57,6 +56,9 @@ def initial_miracles(sender, **kwargs):
 
         {"name":"Ayasofya", "instagram_tags":"ayasofya", "google_tags":"ayasofya",
          "flickr_tags":"ayasofya", "slug":"ayasofya", "description":"",},
+
+        {"name":"Pisa Tower", "instagram_tags":"pisatower", "google_tags":"pisa tower",
+         "flickr_tags":"pisa tower", "slug":"pisa_tower", "description":"",},
     )
 
     if Miracle in kwargs.get('created_models'):

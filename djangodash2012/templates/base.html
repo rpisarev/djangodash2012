@@ -3,9 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title></title>
+    <title>{% block title %}Miracles Live - Today{% endblock %}</title>
     <meta name="keywords" content="" />
-    <meta name="description" content="" />
+    <meta name="description" content="{% block description %}Miracles Live{% endblock %}" />
     <link rel="stylesheet" href="{% static 'css/style.css'%}" type="text/css" media="screen, projection" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
@@ -30,10 +30,10 @@
                 <div class="CenterLayout">
                     <a href="/" class="logo"></a>
                     <ul class="menu">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/">About</a></li>
-                        <li><a href="/">Rating</a></li>
-                        <li><a href="/">Random</a></li>
+                        <li><a href="{% url core_main %}">Home</a></li>
+                        <li><a href="{% url core_about %}">About</a></li>
+                        <li><a href="{% url core_rating %}">Rating</a></li>
+                        <li><a href="{% url core_random %}">Random</a></li>
                     </ul>
                     <div class="right">
                         <ul>

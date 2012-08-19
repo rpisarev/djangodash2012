@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect,HttpResponse, render_to_response
+from django.shortcuts import render, get_object_or_404, redirect,HttpResponse, render_to_response, HttpResponseRedirect
 from django.template import Context
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Sum, F
@@ -10,6 +10,17 @@ from core.models import Image,Vote,Miracle
 
 from .utils import get_client_ip, set_cookie
 
+
+def random(request):
+    miracle = Miracle.objects.order_by('?')[0]
+    return HttpResponseRedirect(miracle.get_absolute_url())
+
+def about(request, template='about.html'):
+    return render(request, template)
+
+def rating(request, template='rating.html'):
+    # rating
+    return render(request, template)
 
 def main(request, template='main.html'):
     miracles = Miracle.objects.all()
