@@ -2,20 +2,19 @@ from django.db import models
 
 # Create your models here.
 class Miracle(models.Model):
-    name = models.CharField('Name',max_length=250)
-    description = models.TextField('Description')
-    coord_x = models.CharField('Latitude',max_length=250)
-    coord_y = models.CharField('Longitude',max_length=250)
-    instag_tags = models.CharField('Instagram tags',max_length=250)
-    google_tags = models.CharField('Google tags',max_length=250)
-    flickr_tags = models.CharField('Flickr tags',max_length=250)
-    slug = models.SlugField('Slug',max_length=250)
-    views_count = models.IntegerField('Views count')
+    name = models.CharField('Name', max_length=250)
+    description = models.TextField('Description', blank=True, null=True)
+    #coord_x = models.CharField('Latitude',max_length=250)
+    #coord_y = models.CharField('Longitude',max_length=250)
+    instagram_tags = models.CharField('Instagram tags', max_length=250, blank=True, null=True)
+    google_tags = models.CharField('Google tags', max_length=250, blank=True, null=True)
+    flickr_tags = models.CharField('Flickr tags', max_length=250, blank=True, null=True)
+    slug = models.SlugField('Slug', max_length=250)
+    views_count = models.IntegerField('Views count', default=0)
 
     @models.permalink
     def get_absolute_url(self):
         return ('core_miracle', (), {'miracle_slug': self.slug})
-
 
     def __unicode__(self):
         return self.name
