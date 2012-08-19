@@ -10,7 +10,8 @@ body {
 	font: 12px/18px Arial, Tahoma, Verdana, sans-serif;
 	height: 100%;
 	background: url('/images/background.png');
-	overflow-x:hidden
+	overflow-x:hidden;
+	color:#fff;
 }
 a {
 	color: blue;
@@ -198,6 +199,15 @@ span.view{
 	position: relative;
 }
 
+.CenterLayout h1.caption{
+	font-size:36px;
+	margin-bottom:20px;
+	margin-top:20px;
+	text-transform: uppercase;
+	font-family: 'PT Sans Narrow';
+	color:#fff;
+}
+
 .slider {
 	width:91%;
 	height:11px;
@@ -313,6 +323,7 @@ span.view{
 	-moz-border-radius: 0 0 10px 10px;
 	border-radius: 0 0 10px 10px;
 	position:relative;
+	overwlow:hidden
 }
 
 #imagesLoad .imagesPanel a.caption{
@@ -325,6 +336,7 @@ span.view{
 }
 
 #imagesLoad .imagesPanel h3{
+	height:10px;
 	float:left;
 	font-size:16px;
 	text-transform: uppercase;
@@ -392,4 +404,36 @@ padding:8px
 	display: inline-block;
 	text-align:center;
 	vertical-align:middle
+}
+
+
+
+
+/* masonry
+-----------------------------------------------------------------------------*/
+
+
+.masonry,
+.masonry .masonry-brick {
+  -webkit-transition-duration: 0.7s;
+     -moz-transition-duration: 0.7s;
+      -ms-transition-duration: 0.7s;
+       -o-transition-duration: 0.7s;
+          transition-duration: 0.7s;
+}
+
+.masonry {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.masonry .masonry-brick {
+  -webkit-transition-property: left, right, top;
+     -moz-transition-property: left, right, top;
+      -ms-transition-property: left, right, top;
+       -o-transition-property: left, right, top;
+          transition-property: left, right, top;
 }

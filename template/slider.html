@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="/js/jquery.masonry.min.js"></script>
+	<script src="../js/modernizr-transitions.js"></script>
 	<script type="text/javascript" src="/js/main.js"></script>
 	<!--[if lte IE 6]><link rel="stylesheet" href="style_ie.css" type="text/css" media="screen, projection" /><![endif]-->
 </head>
@@ -85,26 +86,7 @@
 			  		<input type="hidden" id="hidden"/>
 			  		<script>
 
-			  		$( ".slider" ).slider({
-			  			animate: true,
-			  			range: "min",
-			  			value: 0,
-			  			min: 0,
-			  			max: 100,
-			  			step: 10,
-
-			  			slide: function( event, ui ) {
-			  				var output;
-			  				if(ui.value==0){output='Today'}
-			  				else output=2000 - ui.value+10
-			  				$( "#slider-result" ).html(output);
-			  			},
-
-			  			change: function(event, ui) {
-			  				$('#hidden').attr('value', ui.value);
-			  			}
-
-			  		});
+			  	
 
 			  		</script>
 			  	</div>
@@ -117,229 +99,14 @@
 		
 		<div class="CenterLayout">
 		   
-		    <div id="imagesLoad">
+		    <div id="imagesLoad" slug="/miracle_slug/" class="masonry">
 				
 		    
-		    	<div class="box-2 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
+		    	
+		    
 		    
 		    
 				
-		    
-		    	<div class="box-2 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-2 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-2 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>0</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>TOWER OF LIBERTY</h3>
-		    			<div class="vote"><span>1</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>TOWER OF LIBERTY</h3>
-		    			<div class="vote"><span>10</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>1000</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>TOWER OF LIBERTY</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-1 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfgaaaaaaaaaaaaaaaaaan</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	<div class="box-2 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>TOWER OF LIBERTY</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div> 
-		    	
-		    	<div class="box-2 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>sdfgsdfg</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    	
-		    	
-		    	
-		    	<div class="box-2 float-left">
-		    		<div class="img" style="background-image:url('/images/attractions/liberty.jpg')"></div>
-		    		<div class="imagesPanel black-50">
-		    			<h3>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabsdfsdf</h3>
-		    			<div class="vote"><span>100</span><a href="#" class="up"></a><a href="#" class="down"></a></div>
-		    		</div>
-		    	</div>
-		    
-		    
-				
-		    
 		    
 			</div>
 		</div>
