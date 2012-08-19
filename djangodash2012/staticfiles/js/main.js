@@ -1,5 +1,8 @@
 $(function(){
 	output='today';
+    index_query = 0;
+    display_query = 4;
+    timeout_limit = 30000;
 
     /*
 	$('#imagesLoad .img').live("mouseenter", function(){
@@ -69,6 +72,7 @@ $(function(){
             },
 			success: function(data) {
 				var items = [];
+                index_query++;
 
 				$.each(data, function(key, val) {
 					var size = val.size;
@@ -78,19 +82,24 @@ $(function(){
 					items.push('<div class="'+size+' box masonry-brick float-left"><div class="img" style="background-image:url('+val['url']+')"></div><div class="imagesPanel black-50"><h3>'+title+'</h3><div class="vote"><span>'+val['rating']+'</span><a href="javascript:void(null);" alt="'+val['id']+'" class="vote_link up" type="up"></a><a href="javascript:void(null);" alt="'+val['id']+'" class="vote_link down" type="down"></a></div></div></div>');
 				});
 
-				$container.prepend(items.join('')).masonry('reload' );
+                if(index_query > display_query){
+                    $('#imagesLoad div.delete_brick').last().remove();
+                }
+
+                prepend = '<div class="delete_brick">';
+                append = '</div>';
+                $container.prepend(prepend + items.join('') + append).masonry('reload');
 			}
 		});
 	}
 
     function interval(){
         box();
-        $('#imagesLoad div.box').last().remove();
     }
 
     if($('#imagesLoad').length > 0){
         box(1);
-        timer = setInterval(interval, 20000);
+        timer = setInterval(interval, timeout_limit);
     }
 
     function loader_set(){
