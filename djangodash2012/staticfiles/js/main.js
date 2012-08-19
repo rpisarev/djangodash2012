@@ -2,7 +2,7 @@ $(function(){
 	output='today';
     index_query = 0;
     display_query = 4;
-    timeout_limit = 30000;
+    timeout_limit = 20000;
 
     /*
 	$('#imagesLoad .img').live("mouseenter", function(){
@@ -82,24 +82,26 @@ $(function(){
                 loader_unset();
             },
 			success: function(data) {
-				var items = [];
-                index_query++;
+                if(data){
+                    var items = [];
+                    index_query++;
 
-				$.each(data, function(key, val) {
-					var size = val.size;
+                    $.each(data, function(key, val) {
+                        var size = val.size;
 
-					var title='';
-					if(val['title']) title = val['title'];
-					items.push('<div class="'+size+' box masonry-brick float-left"><div class="img" style="background-image:url('+val['url']+')"></div><div class="imagesPanel black-50"><h3>'+title+'</h3><div class="vote"><span>'+val['rating']+'</span><a href="javascript:void(null);" alt="'+val['id']+'" class="vote_link up" type="up"></a><a href="javascript:void(null);" alt="'+val['id']+'" class="vote_link down" type="down"></a></div></div></div>');
-				});
+                        var title='';
+                        if(val['title']) title = val['title'];
+                        items.push('<div class="'+size+' box masonry-brick float-left"><div class="img" style="background-image:url('+val['url']+')"></div><div class="imagesPanel black-50"><h3>'+title+'</h3><div class="vote"><span>'+val['rating']+'</span><a href="javascript:void(null);" alt="'+val['id']+'" class="vote_link up" type="up"></a><a href="javascript:void(null);" alt="'+val['id']+'" class="vote_link down" type="down"></a></div></div></div>');
+                    });
 
-                if(index_query > display_query){
-                    $('#imagesLoad div.delete_brick').last().remove();
+                    if(index_query > display_query){
+                        $('#imagesLoad div.delete_brick').last().remove();
+                    }
+
+                    prepend = '<div class="delete_brick">';
+                    append = '</div>';
+                    $container.prepend(prepend + items.join('') + append).masonry('reload');
                 }
-
-                prepend = '<div class="delete_brick">';
-                append = '</div>';
-                $container.prepend(prepend + items.join('') + append).masonry('reload');
 			}
 		});
 	}
