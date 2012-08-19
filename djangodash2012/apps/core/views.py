@@ -25,7 +25,7 @@ def miracle(request, miracle_slug, template='miracle.html'):
         set_cookie(response,cookie_key,True,days_expire)
         Miracle.objects.filter(slug=miracle_slug).update(views_count=F('views_count')+1)
 
-    return render(request, template, context)
+    return response
 
 def miracle_year(request, miracle_slug, year):
     return HttpResponse()
