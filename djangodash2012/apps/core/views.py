@@ -28,7 +28,7 @@ def main(request, template='main.html'):
     context = ({'miracles':miracles})
     return render(request, template, context)
 
-def get_images(request,miracle_slug,year='today'):
+def get_images(request,miracle_slug,initial,year='today'):
     service_types = ('google',)
     if year == 'today':
         year = None
