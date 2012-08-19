@@ -6,20 +6,17 @@ import datetime
 from core.models import Image,Vote,Miracle
 from .utils import get_client_ip, instagram_get_by_tag, google_get
 
-def main(request,template='main.html'):
+def main(request, template='main.html'):
     miracles = Miracle.objects.all()
     context = ({'miracles':miracles})
     return render(request, template, context)
 
-def miracle(request,miracle_slug,template='miracle.html'):
-    miracle = get_object_or_404(Miracle,slug = miracle_slug)
+def miracle(request, miracle_slug, template='miracle.html'):
+    miracle = get_object_or_404(Miracle, slug = miracle_slug)
     context = ({'miracle':miracle})
-
-    #instagram_get_by_tag(miracle)
-    #google_get(miracle)
     return render(request, template, context)
 
-def miracle_year(request,miracle_slug,year):
+def miracle_year(request, miracle_slug, year):
     return HttpResponse()
 
 def vote(request,image_id,value):
@@ -45,30 +42,3 @@ def vote(request,image_id,value):
                 image.save()
                 return HttpResponse(image.rating)
     return HttpResponse()
-
-
-def test_google(request):
-    return HttpResponse('LOL')
-
-def test_instagram(request):
-    return HttpResponse()
-
-def test_flickr(request,template='main.html'):
-    import flickrapi
-    imgs = []
-    api_key = '333ecc67971ffa129d1e24f56eb45a3a'
-    flickr = flickrapi.FlickrAPI(api_key)
-    photos = flickr.walk(tag_mode='all',
-        tags='Eifel Tower',
-        min_taken_date='2011-08-20',
-        max_taken_date='2012-08-26')
-    for photo in photos:
-        secret = photo.get('secret')
-        server = photo.get('server')
-        id = photo.get('id')
-        farm = photo.get('farm')
-        size='z'
-        url = r"""http://farm%s.staticflickr.com/%s/%s_%s_%s.jpg""" % (farm,server,id,secret,size)
-        imgs.append(url)
-    context = {'images':imgs}
-    return render(request, template, context)

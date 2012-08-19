@@ -9,6 +9,5 @@ urlpatterns = patterns('local.views',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^parse_flickr$', 'parse_flickr'),
-    url(r'^parse_google$', 'parse_google'),
+    url(r'^parse$', 'parse'),
 )
