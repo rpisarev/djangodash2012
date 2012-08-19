@@ -3,11 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title></title>
+    <title>{% block title %}Miracles Live - Today{% endblock %}</title>
     <meta name="keywords" content="" />
-    <meta name="description" content="" />
+    <meta name="description" content="{% block description %}Miracles Live{% endblock %}" />
     <link rel="stylesheet" href="{% static 'css/style.css'%}" type="text/css" media="screen, projection" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.masonry.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/main.js'%}"></script>
     <!--[if lte IE 6]><link rel="stylesheet" href="{% static 'css/style_ie.css' %}" type="text/css" media="screen, projection" /><![endif]-->
+    <script type="text/javascript" src="http://userapi.com/js/api/openapi.js?52"></script>
     <!--LiveInternet counter--><script type="text/javascript"><!--
         new Image().src = "//counter.yadro.ru/hit?r"+
         escape(document.referrer)+((typeof(screen)=="undefined")?"":
@@ -16,40 +21,55 @@
         ";"+Math.random();//--></script><!--/LiveInternet-->
 
 </head>
-
 <body>
 
 <div id="wrapper">
 
     <div id="header">
         {% block header %}
-        <div class="padding-10 black-80">
-            <div class="CenterLayout">
-                <a href="/" class="logo"></a>
-                <div class="right">
-                    <ul>
-                        <li>
-                            <a href="https://twitter.com/share" class="twitter-share-button" data-via="MiraclesLive">Tweet</a>
-                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                        </li>
-                        <li>
-                            <div id="fb-root"></div>
-                            <script>(function(d, s, id) {
-                                var js, fjs = d.getElementsByTagName(s)[0];
-                                if (d.getElementById(id)) return;
-                                js = d.createElement(s); js.id = id;
-                                js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
-                                fjs.parentNode.insertBefore(js, fjs);
-                            }(document, 'script', 'facebook-jssdk'));
-                            </script>
-                            <div class="fb-like" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true" data-colorscheme="dark" data-font="tahoma"></div>
-                        </li>
-
+            <div class="padding-10 black-80">
+                <div class="CenterLayout">
+                    <a href="{% url core_main %}" class="logo"></a>
+                    <ul class="menu">
+                        <li><a href="{% url core_main %}">Home</a></li>
+                        <li><a href="{% url core_about %}">About</a></li>
+                        <li><a href="{% url core_rating %}">Rating</a></li>
+                        <li><a href="{% url core_random %}">Random</a></li>
                     </ul>
+                    <div class="right">
+                        <ul>
+                            <li>
+                                <a href="https://twitter.com/share" class="twitter-share-button" data-via="MiraclesLive">Tweet</a>
+                                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                            </li>
+                            <li>
+                                <div id="fb-root"></div>
+                                <script>(function(d, s, id) {
+                                    var js, fjs = d.getElementsByTagName(s)[0];
+                                    if (d.getElementById(id)) return;
+                                    js = d.createElement(s); js.id = id;
+                                    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                                    fjs.parentNode.insertBefore(js, fjs);
+                                }(document, 'script', 'facebook-jssdk'));
+                                </script>
+                                <div class="fb-like" data-send="true" data-layout="button_count" data-width="200" data-show-faces="true" data-colorscheme="dark" data-font="tahoma"></div>
+                            </li>
+                            <li>
+                                <script type="text/javascript">
+                                    VK.init({apiId: 3085913, onlyWidgets: true});
+                                </script>
 
+                                <!-- Put this div tag to the place, where the Like block will be -->
+                                <div id="vk_like"></div>
+                                <script type="text/javascript">
+                                    VK.Widgets.Like("vk_like", {type: "mini"});
+                                </script>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+                <div class="clear"></div>
             </div>
-        </div>
         {% endblock %}
     </div><!-- #header-->
     <div id="content">
@@ -59,9 +79,10 @@
 
 </div><!-- #wrapper -->
 
+<div class="clear"></div>
 <div id="footer">
-    <div class="CenterLayout">
-        dsfghjk
+    <div class="CenterLayout padding-10 black-80 radius">
+        MiraclesLive.com
     </div>
 </div><!-- #footer -->
 

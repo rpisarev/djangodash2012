@@ -12,9 +12,12 @@ urlpatterns = patterns('core.views',
     url(r'^$', 'main', name='core_main'),
     url(r'^vote/(?P<image_id>[0-9]+)/(?P<value>(up|down))$', 'vote', name='core_vote'),
 
-    url(r'^(?P<miracle_slug>[-\w]+)/$', 'miracle', name='core_miracle'),
-    url(r'^(?P<miracle_slug>[-\w]+)/(?P<year>[0-9]+)$', 'miracle_year', name='core_miracle_year'),
+    url(r'^random/$', 'random', name='core_random'),
+    url(r'^about/$', 'about', name='core_about'),
+    url(r'^rating/$', 'rating', name='core_rating'),
 
-
+    url(r'^m/(?P<miracle_slug>[-\w]+)/$', 'miracle', name='core_miracle'),
+    url(r'^m/(?P<miracle_slug>[-\w]+)/(?P<year>[0-9]+)$', 'miracle_year', name='core_miracle_year'),
+    url(r'^i/(?P<miracle_slug>[-\w]+)/(?P<year>([0-9]+|today))$', 'get_images', name='core_get_images'),
 
 )
