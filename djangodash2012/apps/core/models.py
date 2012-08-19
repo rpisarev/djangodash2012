@@ -39,7 +39,7 @@ class Image(models.Model):
     type = models.CharField('Service type',max_length=20,choices=SERVICE_TYPES)
     url = models.URLField('URL',max_length=250,unique=True)
     title = models.CharField('Title', max_length=250,blank=True,null=True)
-    size = models.CharField('Image size',max_length=20,choices=IMAGE_SIZES)
+    size = models.CharField('Image size',max_length=20,choices=IMAGE_SIZES,default='box-1')
 
     miracle = models.ForeignKey(Miracle)
     year = models.ForeignKey(Year, null=True, blank=True)

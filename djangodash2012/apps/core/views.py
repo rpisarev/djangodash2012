@@ -6,7 +6,7 @@ import datetime
 from django.conf import settings
 import json
 
-from core.models import Image,Vote,Miracle
+from core.models import Image,Vote,Miracle,Year
 
 from .utils import get_client_ip, set_cookie
 
@@ -27,22 +27,27 @@ def main(request, template='main.html'):
     context = ({'miracles':miracles})
     return render(request, template, context)
 
-def get_images(request,miracle_slug,year='now'):
-
+def get_images(request,miracle_slug,year='today'):
+    service_types = ('google',)
+    try:
+        year = Year.objects.get(value=year)
+    except ObjectDoesNotExist:
+        service_types = ('flickr','instagram')
+        year=None
     big_image_alias = Image.IMAGE_SIZES[1][0]
     small_image_alias = Image.IMAGE_SIZES[0][0]
     session_key = 'viewed_images_%s' % miracle_slug
 
     viewed_images = request.session.get(session_key,[])
-    import pdb
-    pdb.set_trace()
-    big_images = Image.objects.filter(Q(miracle__slug=miracle_slug)&\
-          Q(size=big_image_alias)&~Q(id__in=viewed_images))\
-          .values('id','url','size','title').order_by('?')[:3]
-    small_images_count = 3+4*(3-len(big_images))
-    small_images = Image.objects.filter(Q(miracle__slug=miracle_slug)&
+    big_images = Image.objects.filter(Q(type__in=service_types)\
+        &Q(year=year)& Q(miracle__slug=miracle_slug)&
+        Q(size=big_image_alias)&~Q(id__in=viewed_images))\
+        .values('id','url','size','title','rating').order_by('?')[:3]
+    small_images_count = 12+4*(3-len(big_images))
+    small_images = Image.objects.filter(Q(type__in=service_types)\
+        &Q(year=year)&Q(miracle__slug=miracle_slug)&
         Q(size=small_image_alias)&~Q(id__in=viewed_images)).\
-        values('id','url','size','title').order_by('?')[:small_images_count]
+        values('id','url','size','title','rating').order_by('?')[:small_images_count]
     images = big_images+small_images
     image_ids = map(lambda x:x.pk,images)
     viewed_images = viewed_images.reverse()[len(image_ids):]+image_ids
@@ -67,11 +72,9 @@ def miracle_year(request, miracle_slug, year):
     return HttpResponse()
 
 def vote(request,image_id,value):
-    import pdb
-    pdb.set_trace()
     cookie_key = "image_%s"%image_id
     days_expire = 1
-    if request.is_ajax() and not request.COOKIES.get(cookie_key):
+    if request.is_ajax and not request.COOKIES.get(cookie_key):
         try:
             user_ip = get_client_ip(request)
             time_ago = datetime.datetime.now()-datetime.timedelta(days=days_expire)
@@ -89,11 +92,14 @@ def vote(request,image_id,value):
                 vote.image = image
                 vote.created = datetime.datetime.now()
                 vote.save()
-
                 image.rating = Vote.objects.filter(image=image)\
                     .aggregate(sum=Sum('value')).get('sum')
                 image.save()
-                response.write(image.rating)
+                recalc_sizes(image.miracle)
+                image =Image.objects.get(id=image.pk)
+                new_data = {'rating':image.rating,'id':image.pk,'size':image.size}
+                new_data_encoded = json.dumps(new_data)
+                response.write(new_data_encoded)
                 set_cookie(response,cookie_key,True,days_expire)
                 return response
     return HttpResponse()
