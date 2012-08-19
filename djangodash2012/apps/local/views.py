@@ -18,7 +18,7 @@ def parse(request):
     for miracle in miracles:
 #        parse_flickr(miracle)
         parse_google(miracle, years)
-#        parse_instagram(miracle)
+        parse_instagram(miracle)
     return HttpResponse()
 
 def parse_flickr(miracle):
