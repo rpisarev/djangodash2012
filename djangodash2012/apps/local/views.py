@@ -53,20 +53,23 @@ def parse_google(miracle, years):
         #service = build('customsearch', 'v1', developerKey=settings.GOOGLE_API)
         #request = service.list(q=tag, cx=settings.GOOGLE_PROJECT ,searchType='image')
         #result = request.execute()
-        for start in xrange(start, settings.PARSE_GOOGLE_COUNT, step):
-            url = ('https://ajax.googleapis.com/ajax/services/search/images?v=1.0&start=%i&q=%s'\
-                   % (start,search_string))
-            request = urllib2.Request(url, None, {'Referer': ''})
-            response = urllib2.urlopen(request)
-            results = simplejson.load(response)
+        try:
+            for start in xrange(start, settings.PARSE_GOOGLE_COUNT, step):
+                url = ('https://ajax.googleapis.com/ajax/services/search/images?v=1.0&start=%i&q=%s'\
+                       % (start,search_string))
+                request = urllib2.Request(url, None, {'Referer': ''})
+                response = urllib2.urlopen(request)
+                results = simplejson.load(response)
 
-            if results:
-                if results['responseData']['results'] is not None:
-                    for image in results['responseData']['results']:
-                        title = image.get('titleNoFormatting')
-                        if len(image.get('url'))<250:
-                            create_image(miracle, Image.SERVICE_TYPES[2][0],image.get('url'), title,year)
-            time.sleep(2)
+                if results:
+                    if results['responseData']['results'] is not None:
+                        for image in results['responseData']['results']:
+                            title = image.get('titleNoFormatting')
+                            if len(image.get('url'))<250:
+                                create_image(miracle, Image.SERVICE_TYPES[2][0],image.get('url'), title,year)
+                time.sleep(3)
+        except:
+            pass
     return
 
 def parse_instagram(miracle):
