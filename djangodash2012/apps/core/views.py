@@ -128,10 +128,13 @@ def recalc_sizes(miracle):
 
     images_to_big= Image.objects.filter(miracle=miracle).order_by('-rating')\
         .values('id')[:big_image_num]
-    Image.objects.filter(id__in=images_to_big).update(size=big_image_alias)
+    sql_in = [Q(id=i) for i in images_to_big]
+    Image.objects.filter(featured=True,*sql_in).update(size=big_image_alias)
 
     images_to_small = Image.objects.filter(miracle=miracle).order_by('-rating')\
         .values('id')[big_image_num:]
-    Image.objects.filter(id__in=images_to_small).update(size=small_image_alias)
+
+    sql_in = [Q(id=i) for i in images_to_small]    
+    Image.objects.filter(featured=True,*sql_in).update(size=small_image_alias)
 
     return

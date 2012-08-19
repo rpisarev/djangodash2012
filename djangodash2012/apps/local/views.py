@@ -27,7 +27,7 @@ def parse_flickr(miracle):
         min_taken_date='2010-01-01',
         max_taken_date='2012-12-31',
         sort = 'interestingness-desc',
-        per_page=100,
+        per_page=150,
     )
     for photo in photos.iter():
         secret = photo.get('secret')

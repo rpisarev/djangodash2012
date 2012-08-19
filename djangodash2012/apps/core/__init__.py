@@ -60,7 +60,6 @@ def initial_miracles(sender, **kwargs):
         {"name":"Pisa Tower", "instagram_tags":"pisatower", "google_tags":"pisa tower",
          "flickr_tags":"pisa tower", "slug":"pisa_tower", "description":"",},
     )
-
     if Miracle in kwargs.get('created_models'):
         for miracle in miracles:
             new_miracle = Miracle()
