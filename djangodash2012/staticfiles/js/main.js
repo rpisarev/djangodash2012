@@ -54,8 +54,10 @@ $(function(){
 	})
 
     // load images
-	function box() {
-        var url = '/i/'+$('#imagesLoad').attr('slug')+'/'+output;
+	function box(initial) {
+        initial = typeof initial !== 'undefined' ? initial : 0;
+
+        var url = '/i/'+$('#imagesLoad').attr('slug')+'/'+output + '/' + initial;
 		var json = $.ajax({
 			dataType: 'json',
 			url: url,
@@ -67,10 +69,8 @@ $(function(){
             },
 			success: function(data) {
 				var items = [];
-				i = 0;
 
 				$.each(data, function(key, val) {
-					i++;
 					var size = val.size;
 
 					var title='';
@@ -81,20 +81,17 @@ $(function(){
 				$container.prepend(items.join('')).masonry('reload' );
 			}
 		});
-		//return i;
 	}
 
-    if($('#imagesLoad').length > 0){
+    function interval(){
         box();
+        $('#imagesLoad div.box').last().remove();
     }
 
-	function interval(){
-		box()
-		while (i) {
-			$('#imagesLoad div.box').last().remove()
-			i--;
-		}
-	}
+    if($('#imagesLoad').length > 0){
+        box(1);
+        timer = setInterval(interval, 20000);
+    }
 
     function loader_set(){
         $('#slider-result').html('<img src="/static/images/loading.gif">');
@@ -103,8 +100,6 @@ $(function(){
     function loader_unset(){
         $('#slider-result').html(output);
     }
-
-	var inter = setInterval(interval, 30000)
 
 	$( ".slider" ).slider({
 		animate: true,
