@@ -10,4 +10,5 @@ urlpatterns = patterns('local.views',
 
     # Uncomment the next line to enable the admin:
     url(r'^parse_flickr$', 'parse_flickr'),
+    url(r'^parse_google$', 'parse_google'),
 )

@@ -29,7 +29,6 @@ class Image(models.Model):
     rating = models.IntegerField('Rating',default=0)
     type = models.CharField('Service type',max_length=20,choices=SERVICE_TYPES)
     url = models.URLField('URL',max_length=250,unique=True)
-    source = models.CharField('Source Id', max_length=250,unique=True)
 
     miracle = models.ForeignKey(Miracle)
     year = models.ForeignKey(Year, null=True, blank=True)

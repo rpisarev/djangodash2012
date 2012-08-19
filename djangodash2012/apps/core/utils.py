@@ -33,9 +33,10 @@ def google_get(miracle):
     response = urllib2.urlopen(request)
 
     results = simplejson.load(response)
-
-    for image in['responseData']['results']:
-        url = image.url
+    import pdb
+    pdb.set_trace()
+    for image in ['responseData']['results']:
+        url = image.get('url')
         source = image.imageId
         create_image(miracle, Image.SERVICE_TYPES[2], url, source)
 
