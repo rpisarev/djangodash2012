@@ -15,8 +15,8 @@ def parse(request):
     years = Year.objects.all()
 
     for miracle in miracles:
-        # parse_flickr(miracle)
-        # parse_google(miracle, years)
+        parse_flickr(miracle)
+        parse_google(miracle, years)
         parse_instagram(miracle)
     return HttpResponse()
 
