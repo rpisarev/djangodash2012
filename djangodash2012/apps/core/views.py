@@ -46,7 +46,7 @@ def get_images(request,miracle_slug,initial,year='today'):
     if int(initial) == 1:
         big_images_num = 3
         small_images_num = 12
-        viewed_images = []        
+        viewed_images = []
     else:
         viewed_images = request.session.get(session_key,[])
         big_images_num = random.randint(1,2)
@@ -62,7 +62,7 @@ def get_images(request,miracle_slug,initial,year='today'):
         &Q(year=year)&Q(miracle__slug=miracle_slug)&
         Q(size=small_image_alias)&~Q(id__in=viewed_images)).\
         values('id','url','size','title','rating').order_by('?')[:small_images_count]
-    
+
     images = list(chain(big_images, small_images))
     if len(images)==0:
         return HttpResponse()
@@ -136,6 +136,6 @@ def recalc_sizes(miracle):
     # Image.objects.filter(id__in=images_to_small).update(size=small_image_alias)
     for image_to_small in images_to_small:
         Image.objects.filter(pk=image_to_small.get('id')).update(size=small_image_alias)
-    
+
 
     return

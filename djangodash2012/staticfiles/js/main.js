@@ -1,16 +1,10 @@
 $(function(){
-	output='today';
+	output = 'today'; // default name
     index_query = 0;
     display_query = 4;
     timeout_limit = 20000;
 
-    /*
-	$('#imagesLoad .img').live("mouseenter", function(){
-		$(this).html('<div class="eye"></div>')
-	}).live("mouseleave", function(){
-		$(this).empty()
-	})*/
-
+    // main page click on miracle
     $('#mainBody .img').click(function(){
         window.location = $(this).attr('url');
     });
@@ -23,7 +17,7 @@ $(function(){
 		isAnimated: !Modernizr.csstransitions
 	});
 
-    // fixed
+    // vote
     $('a.vote_link').live('click', function(event){
         event.preventDefault(); //stop default browser behaviour
         var this_vote = $(this);
@@ -45,23 +39,17 @@ $(function(){
     })
 
     // lightbox
-	$('#imagesLoad .img').live('click',function(){
-		var img = $(this).css('background-image').split('url(').join('').split(')').join('').split('"').join('')
+	$('#imagesLoad .img').live('click', lightbox_miracle);
+    $('#ratingBody .img').live('click', lightbox_miracle);
 
-		$('#lightbox img').attr('src',img)
-		var images_height = $('#lightbox img').attr('src',img)
-		$('.blackBackground').fadeIn()
-		$('#lightbox').css('margin-top',-$('#lightbox img').height()/2)
-	});
-
-    $('#ratingBody .img').live('click',function(){
+    function lightbox_miracle(){
         var img = $(this).css('background-image').split('url(').join('').split(')').join('').split('"').join('')
 
         $('#lightbox img').attr('src',img)
         var images_height = $('#lightbox img').attr('src',img)
         $('.blackBackground').fadeIn()
         $('#lightbox').css('margin-top',-$('#lightbox img').height()/2)
-    });
+    }
 
 	$('.blackBackground').click(function(){
 		$(this).fadeOut();
@@ -70,6 +58,9 @@ $(function(){
     // load images
 	function box(initial) {
         initial = typeof initial !== 'undefined' ? initial : 0;
+        if(initial == 1){
+            index_query = 0;
+        }
 
         var url = '/i/'+$('#imagesLoad').attr('slug')+'/'+output + '/' + initial;
 		var json = $.ajax({
@@ -132,10 +123,11 @@ $(function(){
 		step: 10,
 
 		slide: function( event, ui ) {
-			//var output;
-			if(ui.value==0){output='today'}
+			if(ui.value==0){
+                output = 'today'
+            }
 			else{
-                output=2000 - ui.value+10
+                output = 2000 - ui.value+10
             }
 			loader_unset();
 			$container.empty()

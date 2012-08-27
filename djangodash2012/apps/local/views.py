@@ -85,7 +85,7 @@ def parse_instagram(miracle):
 
                 if not results:
                     break
-                
+
                 next_url = results['pagination'].get('next_url',False)
 
                 for media in results['data']:
