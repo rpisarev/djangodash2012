@@ -4,6 +4,7 @@ from django.db import models
 class Miracle(models.Model):
     name = models.CharField('Name', max_length=250)
     description = models.TextField('Description', blank=True, null=True)
+    seo_title = models.CharField('Seo title',max_length=250,blank=True,null=True)
     #coord_x = models.CharField('Latitude',max_length=250)
     #coord_y = models.CharField('Longitude',max_length=250)
     instagram_tags = models.CharField('Instagram tags', max_length=250, blank=True, null=True)
