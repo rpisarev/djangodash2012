@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}{{ miracle.name }} on Miracles Live{% endblock %}
-{% block description %}{{ miracle.description }}{% endblock %}
+{% block description %}{{ miracle.seo_title }}{% endblock %}
 {% block content %}
     <div class="images" style="background-image: url('{% static 'images/attractions/'%}{{ miracle.slug }}.jpg')">
         <div class="under">
