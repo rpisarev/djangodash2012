@@ -406,7 +406,11 @@ padding:8px
 	vertical-align:middle
 }
 
-
+div.description{
+	padding-left: 20px;
+	padding-right: 40px;
+	padding-top: 30px;
+}
 
 
 /* masonry
