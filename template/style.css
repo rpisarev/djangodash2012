@@ -408,7 +408,11 @@ padding:8px
 }
 
 
-
+div.decription{
+	padding-left: 20px;
+	padding-right: 40px;
+	padding-top: 30px;
+}
 
 /* masonry
 -----------------------------------------------------------------------------*/
