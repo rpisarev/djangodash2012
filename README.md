@@ -10,13 +10,15 @@ MiraclesLive is a visual composition existing miracles of the world based on tag
 
 
 ~~~~{.bash}
-git clone https://hg@bitbucket.org/chodex/djangodash2012
+git clone https://github.com/rpisarev/djangodash2012
 cd djangodash2012
 mkvirtualenv miracleslive
 pip install -r requirements.txt
 python manage.py syncdb
 python manage.py migrate
-python manage.py runserver
+python manage.py runserver 0.0.0.0:8000
+http://127.0.0.1:8000/parse
+http://127.0.0.1:8000/
 ~~~~
 
 -----
