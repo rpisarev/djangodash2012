@@ -1,4 +1,4 @@
-django
+django==1.4.3
 south
 httplib2
 simplejson
